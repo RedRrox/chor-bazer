@@ -25,32 +25,30 @@
 
         input[type="text"] { width: 100%; padding: 15px; background: #000; border: 1px solid #333; color: var(--neon-yellow); border-radius: 8px; font-size: 18px; outline: none; text-align: center; font-weight: bold; }
 
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .item { background: #000; border: 1px solid #222; padding: 15px; border-radius: 8px; cursor: pointer; text-align: center; transition: 0.3s; }
+        /* Diamond Grid Updated to 2 Items */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .item { background: #000; border: 1px solid #222; padding: 20px; border-radius: 10px; cursor: pointer; text-align: center; transition: 0.3s; }
         .item:hover { border-color: var(--neon-yellow); }
-        .item.active { border-color: var(--neon-yellow); background: rgba(204, 255, 0, 0.05); }
-        .item .price { display: block; color: var(--neon-yellow); font-weight: bold; font-size: 20px; }
+        .item.active { border-color: var(--neon-yellow); background: rgba(204, 255, 0, 0.08); box-shadow: 0 0 15px rgba(204, 255, 0, 0.1); }
+        .item span { display: block; font-weight: 600; margin-bottom: 5px; }
+        .item .price { color: var(--neon-yellow); font-weight: bold; font-size: 22px; }
 
-        .summary p { display: flex; justify-content: space-between; margin-bottom: 5px; color: #aaa; }
-        .summary .total { color: var(--neon-yellow); font-size: 22px; font-weight: bold; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; }
+        .summary p { display: flex; justify-content: space-between; margin-bottom: 8px; color: #aaa; font-size: 16px; }
+        .summary .total { color: var(--neon-yellow); font-size: 24px; font-weight: bold; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; }
 
         .pay-method { display: flex; gap: 15px; margin-top: 15px; }
         
-        /* --- Logo Cropping Logic --- */
         .logo-crop {
             width: 80px; 
-            height: 45px; /* Height কমিয়ে দেওয়া হয়েছে যাতে নিচের লেখাটা কেটে যায় */
+            height: 45px; 
             overflow: hidden; 
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* যাতে লোগোর উপরের অংশ ঠিক থাকে */
+            align-items: flex-start;
         }
-        .logo-crop img {
-            width: 80px; 
-            height: auto;
-        }
+        .logo-crop img { width: 80px; height: auto; }
 
-        .method { flex: 1; padding: 15px; border: 1px solid #222; border-radius: 10px; text-align: center; cursor: pointer; position: relative; background: #000; display: flex; align-items: center; justify-content: center; min-height: 80px; }
+        .method { flex: 1; padding: 15px; border: 1px solid #222; border-radius: 10px; text-align: center; cursor: pointer; position: relative; background: #000; display: flex; align-items: center; justify-content: center; min-height: 85px; }
         .method.active { border-color: var(--bkash-color); background: rgba(209, 32, 83, 0.05); }
         .method.disabled { opacity: 0.4; cursor: not-allowed; }
         .badge-soon { position: absolute; top: -10px; right: -5px; background: #444; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
@@ -60,19 +58,18 @@
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center;
         }
-        .bkash-content { background: #fff; width: 90%; max-width: 400px; border-radius: 10px; overflow: hidden; color: #000; }
+        .bkash-content { background: #fff; width: 92%; max-width: 400px; border-radius: 12px; overflow: hidden; color: #000; }
         .bkash-header { 
             background: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #eee;
             display: flex; justify-content: center;
         }
-        /* Modal Logo Crop */
         .header-crop { width: 120px; height: 65px; overflow: hidden; }
         .header-crop img { width: 120px; height: auto; }
 
         .bkash-body { background: var(--bkash-color); color: #fff; padding: 20px; text-align: left; }
         .instr { font-size: 13px; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px; }
         .instr b { color: var(--neon-yellow); }
-        .trx-input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: none; font-size: 16px; text-align: center; font-weight: bold; }
+        .trx-input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 6px; border: none; font-size: 18px; text-align: center; font-weight: bold; text-transform: uppercase; }
         
         .verify-btn { 
             width: 90%; margin: 0 auto 20px auto; display: block;
@@ -80,10 +77,12 @@
             border: none; font-weight: bold; cursor: pointer; 
             font-size: 18px; border-radius: 8px; 
             transition: 0.3s; text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
         }
         .verify-btn:hover { background: #ff0000; box-shadow: 0 0 15px rgba(255,0,0,0.5); }
 
-        .btn-buy { width: 100%; padding: 18px; background: var(--neon-yellow); color: #000; border: none; border-radius: 8px; font-weight: bold; font-size: 20px; cursor: pointer; margin-top: 10px; }
+        .btn-buy { width: 100%; padding: 18px; background: var(--neon-yellow); color: #000; border: none; border-radius: 8px; font-weight: bold; font-size: 20px; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .btn-buy:hover { box-shadow: 0 0 25px var(--neon-yellow); }
     </style>
 </head>
 <body>
@@ -99,23 +98,15 @@
     </div>
 
     <div class="box">
-        <h2>2. Select Diamonds</h2>
+        <h2>2. Select Pack</h2>
         <div class="grid">
-            <div class="item" onclick="selectPack(this, '115 Diamonds', 85)">
-                <span>115 Diamonds</span>
-                <span class="price">৳ 85</span>
-            </div>
-            <div class="item" onclick="selectPack(this, '240 Diamonds', 165)">
-                <span>240 Diamonds</span>
-                <span class="price">৳ 165</span>
-            </div>
-            <div class="item" onclick="selectPack(this, 'Weekly Member', 160)">
+            <div class="item" onclick="selectPack(this, 'Weekly Member', 140)">
                 <span>Weekly Member</span>
-                <span class="price">৳ 160</span>
+                <span class="price">৳ 140</span>
             </div>
-            <div class="item" onclick="selectPack(this, 'Monthly Member', 780)">
+            <div class="item" onclick="selectPack(this, 'Monthly Member', 650)">
                 <span>Monthly Member</span>
-                <span class="price">৳ 780</span>
+                <span class="price">৳ 650</span>
             </div>
         </div>
     </div>
