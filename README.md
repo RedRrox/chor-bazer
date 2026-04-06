@@ -92,14 +92,14 @@
         <div class="grid">
             <div class="item premium-card">
                 <div class="special-badge">LIMITED TIME</div>
-                <span style="font-weight:700;">💎 2x Monthly Member 💎</span>
+                <span style="font-weight:700;">💎 2x Monthly Offer 💎</span>
                 <span class="price" style="opacity: 0.5;">৳ 1</span>
                 <span class="stock-tag">OUT OF STOCK</span>
             </div>
-            <div class="item" onclick="selectPack(this, 'Weekly Member', 140)">
+            <div class="item" onclick="selectPack(this, 'Weekly ', 140)">
                 <span>Weekly Member</span><span class="price">৳ 140</span>
             </div>
-            <div class="item" onclick="selectPack(this, 'Monthly Member', 650)">
+            <div class="item" onclick="selectPack(this, 'Monthly ', 650)">
                 <span>Monthly Member</span><span class="price">৳ 650</span>
             </div>
         </div>
