@@ -130,7 +130,7 @@
             <p style="text-align: center; font-weight: bold; margin-bottom: 15px;">ট্রানজেকশন আইডি দিন</p>
             <input type="text" class="trx-input" id="trx-input" placeholder="TrxID এখানে দিন">
             <div class="instr">● "Send Money" এ ক্লিক করুন।</div>
-            <div class="instr">● নম্বরঃ <b id="target-num">017797722010</b> <button class="copy-btn" onclick="copyNum()">COPY</button></div>
+            <div class="instr">● নম্বরঃ <b id="target-num">01779772201</b> <button class="copy-btn" onclick="copyNum()">COPY</button></div>
             <div class="instr">● টাকার পরিমাণঃ ৳ <b id="pay-amount">0</b></div>
             <div class="instr">● পেমেন্ট হয়ে গেলে ট্রানজেকশন আইডি উপরের বক্সে দিন।</div>
         </div>
