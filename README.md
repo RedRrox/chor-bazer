@@ -119,7 +119,7 @@
         <div style="line-height:1.6; color:#ccc;">
             <p>Welcome to <b>Chor Bazer</b>, the most trusted gaming top-up platform in Bangladesh.</p><br>
             <p>We provide Free Fire Membership and Diamonds with speed and security.</p><br>
-            <p>✅ Fast Delivery (Removed Super)<br>✅ 24/7 Support</p>
+            <p>✅ Fast Delivery <br>✅ 24/7 Support</p>
         </div>
     </div>
 </div>
