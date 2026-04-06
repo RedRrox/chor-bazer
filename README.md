@@ -31,15 +31,15 @@
             font-weight: bold; 
             color: var(--neon-yellow); 
             font-size: 14px;
-            min-height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.5s ease;
+            transition: all 0.5s ease-in-out;
         }
 
-        .real-order { color: #00ff88 !important; border-color: #00ff88 !important; background: rgba(0, 255, 136, 0.1) !important; animation: highlight 1s ease; }
-        @keyframes highlight { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
+        .real-order-active { 
+            color: #00ff88 !important; 
+            border: 2px solid #00ff88 !important; 
+            background: rgba(0, 255, 136, 0.1) !important; 
+            transform: scale(1.02);
+        }
 
         .box { background: var(--card-bg); border: 1px solid #222; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
         h2 { font-size: 18px; margin-bottom: 15px; color: var(--neon-yellow); text-transform: uppercase; border-left: 4px solid var(--neon-yellow); padding-left: 10px; }
@@ -54,14 +54,27 @@
         .summary p { display: flex; justify-content: space-between; margin-bottom: 8px; color: #aaa; }
         .summary .total { color: var(--neon-yellow); font-size: 24px; font-weight: bold; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; }
 
-        .btn-buy { width: 100%; padding: 18px; background: var(--neon-yellow); color: #000; border: none; border-radius: 8px; font-weight: bold; font-size: 20px; cursor: pointer; margin-top: 10px; }
+        /* Payment Methods */
+        .pay-method { display: flex; gap: 15px; margin-top: 15px; }
+        .logo-crop { width: 80px; height: 45px; overflow: hidden; display: flex; justify-content: center; align-items: flex-start; }
+        .logo-crop img { width: 80px; height: auto; }
+        .method { flex: 1; padding: 15px; border: 1px solid #222; border-radius: 10px; text-align: center; cursor: pointer; position: relative; background: #000; display: flex; align-items: center; justify-content: center; min-height: 85px; }
+        .method.active { border-color: var(--bkash-color); background: rgba(209, 32, 83, 0.05); }
 
-        /* Modal */
+        /* Original bKash Modal Style */
         #bkash-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; }
-        .bkash-content { background: #fff; width: 92%; max-width: 400px; border-radius: 12px; overflow: hidden; color: #000; text-align: center; }
+        .bkash-content { background: #fff; width: 92%; max-width: 400px; border-radius: 12px; overflow: hidden; color: #000; }
+        .bkash-header { background: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #eee; display: flex; justify-content: center; }
+        .header-crop { width: 120px; height: 65px; overflow: hidden; }
+        .header-crop img { width: 120px; height: auto; }
         .bkash-body { background: var(--bkash-color); color: #fff; padding: 20px; text-align: left; }
+        .instr { font-size: 13px; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 8px; }
+        .instr b { color: var(--neon-yellow); }
+        .trx-input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 6px; border: none; font-size: 18px; text-align: center; font-weight: bold; text-transform: uppercase; }
         .copy-btn { background: #fff; color: #000; border: none; padding: 2px 8px; border-radius: 4px; font-size: 10px; cursor: pointer; margin-left: 10px; font-weight: bold; }
-        .verify-btn { width: 90%; margin: 15px auto; display: block; padding: 15px; background: #d00000; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 8px; }
+        .delivery-notice { background: #fff9c4; color: #d32f2f; padding: 10px; font-size: 12px; text-align: center; font-weight: bold; border-top: 1px dashed #ccc; }
+        .verify-btn { width: 90%; margin: 15px auto; display: block; padding: 15px; background: #d00000; color: #fff; border: none; font-weight: bold; cursor: pointer; font-size: 18px; border-radius: 8px; text-transform: uppercase; }
+        .btn-buy { width: 100%; padding: 18px; background: var(--neon-yellow); color: #000; border: none; border-radius: 8px; font-weight: bold; font-size: 20px; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -71,11 +84,11 @@
 </header>
 
 <div class="container">
-    <div id="notify-box">🚀 Initializing Chor Bazer secure server...</div>
+    <div id="notify-box">🚀 Loading Chor Bazer Secure System...</div>
 
     <div class="box">
         <h2>1. Player UID / Roblox Username</h2>
-        <input type="text" id="uid-input" placeholder="Enter UID or Username" oninput="updateSummary()">
+        <input type="text" id="uid-input" placeholder="Enter UID or Username" oninput="updateID()">
     </div>
 
     <div class="box">
@@ -93,21 +106,30 @@
         <p>Selected: <span id="sum-pack">-</span></p>
         <p>ID/Username: <span id="sum-id">-</span></p>
         <div class="total">Total: ৳ <span id="sum-total">0</span></div>
+
+        <h2 style="margin-top: 20px;">4. Select Payment Method</h2>
+        <div class="pay-method">
+            <div class="method active"><div class="logo-crop"><img src="bikashlogo.png" alt="bkash"></div></div>
+            <div class="method" style="opacity:0.4;"><span style="position:absolute; top:-5px; font-size:8px; background:#444; padding:2px 5px; border-radius:3px;">COMING SOON</span><img src="https://download.logo.wine/logo/Nagad/Nagad-Logo.wine.png" alt="nagad" style="width:70px;"></div>
+        </div>
         <button class="btn-buy" onclick="openPayment()">BUY NOW</button>
     </div>
 </div>
 
 <div id="bkash-modal">
     <div class="bkash-content">
-        <div style="padding:15px; border-bottom:1px solid #eee;"><img src="bikashlogo.png" width="100"></div>
+        <div class="bkash-header"><div class="header-crop"><img src="bikashlogo.png" alt="bkash"></div></div>
         <div class="bkash-body">
-            <p style="text-align: center; font-weight: bold; margin-bottom: 15px;">পেমেন্ট ভেরিফাই করুন</p>
-            <input type="text" id="trx-input" style="width:100%; padding:14px; border-radius:6px; border:none; font-size:18px; text-align:center; margin-bottom:15px;" placeholder="TrxID এখানে দিন">
-            <div style="font-size:13px; margin-bottom:8px;">● নম্বরঃ <b>01779772201</b> <button class="copy-btn" onclick="copyNum()">COPY</button></div>
-            <div style="font-size:13px;">● টাকার পরিমাণঃ ৳ <b id="pay-amount">0</b></div>
+            <p style="text-align: center; font-weight: bold; margin-bottom: 15px;">ট্রানজেকশন আইডি দিন</p>
+            <input type="text" class="trx-input" id="trx-input" placeholder="TrxID এখানে দিন">
+            <div class="instr">● "Send Money" এ ক্লিক করুন।</div>
+            <div class="instr">● নম্বরঃ <b>01779772201</b> <button class="copy-btn" onclick="copyNum()">COPY</button></div>
+            <div class="instr">● টাকার পরিমাণঃ ৳ <b id="pay-amount">0</b></div>
+            <div class="instr">● পেমেন্ট হয়ে গেলে ট্রানজেকশন আইডি উপরের বক্সে দিন।</div>
         </div>
-        <button class="verify-btn" onclick="processRealOrder()">VERIFY ORDER</button>
-        <button onclick="document.getElementById('bkash-modal').style.display='none'" style="width: 100%; background: #f5f5f5; border: none; padding: 12px; color: #666; font-weight: bold; cursor:pointer;">CANCEL</button>
+        <div class="delivery-notice">⚠️ পেমেন্ট সম্পন্ন হওয়ার ৩০-৪০ মিনিটের মধ্যে প্যাক চলে যাবে।</div>
+        <button class="verify-btn" onclick="verifyRealOrder()">VERIFY</button>
+        <button onclick="document.getElementById('bkash-modal').style.display='none'" style="width: 100%; background: #f5f5f5; border: none; padding: 12px; cursor: pointer; color: #666; font-weight: bold;">CANCEL</button>
     </div>
 </div>
 
@@ -116,58 +138,45 @@
     let selectedPackName = "";
     let notifyInterval;
 
-    // ফেক ডাটা
-    const ffNames = ["ID 4521***", "ID 9982***", "ID 1002***", "ID 7745***"];
-    const robloxUsers = ["user rafi***", "user sakib***", "user op_gamer***", "user king***"];
+    const fakeFF = ["ID 4521***", "ID 9982***", "ID 1002***", "ID 7745***"];
+    const fakeRobux = ["user rafi***", "user sakib***", "user king***", "user topup_pro***"];
 
-    function showFakeNotification() {
-        const notify = document.getElementById('notify-box');
-        notify.classList.remove('real-order');
-        notify.style.opacity = '0';
-        
-        setTimeout(() => {
-            const isRobux = Math.random() > 0.5;
-            if (isRobux) {
-                const user = robloxUsers[Math.floor(Math.random() * robloxUsers.length)];
-                notify.innerText = `Success! ${user} got 40 Robux.`;
-            } else {
-                const id = ffNames[Math.floor(Math.random() * ffNames.length)];
-                notify.innerText = `${id} just bought Weekly!`;
-            }
-            notify.style.opacity = '1';
-        }, 500);
-    }
-
-    // অটো ফেক নোটিফিকেশন শুরু
-    notifyInterval = setInterval(showFakeNotification, 10000);
-    showFakeNotification();
-
-    // আসল অর্ডার প্রসেসিং লজিক
-    function processRealOrder() {
-        const trx = document.getElementById('trx-input').value;
-        const uid = document.getElementById('uid-input').value;
-
-        if(trx.length < 5) {
-            alert("TrxID সঠিক নয়!");
-            return;
-        }
-
-        // আসল অর্ডারের ইনফো নোটিফিকেশনে সেট করা
-        clearInterval(notifyInterval); // ফেক নোটিফিকেশন থামানো
-        const notify = document.getElementById('notify-box');
-        
-        notify.classList.add('real-order');
-        notify.innerText = `✅ ORDER DONE! ${uid} just purchased ${selectedPackName}.`;
-
-        alert("অর্ডার সফল! আপনার প্যাকটি ৩০-৪০ মিনিটে পৌঁছে যাবে।");
-        
-        document.getElementById('bkash-modal').style.display = 'none';
-
-        // ১০ সেকেন্ড পর আবার ফেক নোটিফিকেশন শুরু করা
-        setTimeout(() => {
-            notifyInterval = setInterval(showFakeNotification, 10000);
+    function startFakeNotifications() {
+        notifyInterval = setInterval(() => {
+            const notify = document.getElementById('notify-box');
+            notify.classList.remove('real-order-active');
+            notify.style.opacity = '0';
+            setTimeout(() => {
+                const isRobux = Math.random() > 0.5;
+                if(isRobux) {
+                    const user = fakeRobux[Math.floor(Math.random() * fakeRobux.length)];
+                    notify.innerText = `Success! ${user} got 40 Robux.`;
+                } else {
+                    const id = fakeFF[Math.floor(Math.random() * fakeFF.length)];
+                    notify.innerText = `${id} just bought Weekly!`;
+                }
+                notify.style.opacity = '1';
+            }, 500);
         }, 10000);
     }
+
+    function verifyRealOrder() {
+        const trx = document.getElementById('trx-input').value;
+        const uid = document.getElementById('uid-input').value;
+        if(trx.length < 5) { alert("ভুল ট্রানজেকশন আইডি!"); return; }
+
+        clearInterval(notifyInterval);
+        const notify = document.getElementById('notify-box');
+        notify.classList.add('real-order-active');
+        notify.innerText = `✅ ORDER DONE! ${uid} just purchased ${selectedPackName}.`;
+
+        alert("অর্ডার সফল! ৩০-৪০ মিনিটের মধ্যে ডেলিভারি পাবেন।");
+        document.getElementById('bkash-modal').style.display = 'none';
+
+        setTimeout(() => { startFakeNotifications(); }, 15000); // ১৫ সেকেন্ড পর আবার ফেক শুরু
+    }
+
+    startFakeNotifications();
 
     function selectPack(el, name, price) {
         document.querySelectorAll('.item').forEach(i => i.classList.remove('active'));
@@ -179,22 +188,9 @@
         document.getElementById('pay-amount').innerText = price;
     }
 
-    function updateSummary() {
-        document.getElementById('sum-id').innerText = document.getElementById('uid-input').value || "-";
-    }
-
-    function openPayment() {
-        if(!document.getElementById('uid-input').value || selectedPrice === 0) {
-            alert("সব তথ্য পূরণ করুন!");
-            return;
-        }
-        document.getElementById('bkash-modal').style.display = 'flex';
-    }
-
-    function copyNum() {
-        navigator.clipboard.writeText("01779772201");
-        alert("Number Copied!");
-    }
+    function updateID() { document.getElementById('sum-id').innerText = document.getElementById('uid-input').value || "-"; }
+    function openPayment() { if(!document.getElementById('uid-input').value || selectedPrice === 0) { alert("তথ্য দিন!"); return; } document.getElementById('bkash-modal').style.display = 'flex'; }
+    function copyNum() { navigator.clipboard.writeText("01779772201"); alert("Number Copied!"); }
 </script>
 
 </body>
