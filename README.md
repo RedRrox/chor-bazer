@@ -46,9 +46,9 @@
         .total { color: var(--neon-yellow); font-size: 22px; font-weight: bold; border-top: 1px solid #333; padding-top: 8px; margin-top: 8px; }
         .btn-buy { width: 100%; padding: 15px; background: var(--neon-yellow); color: #000; border: none; border-radius: 8px; font-weight: bold; font-size: 18px; cursor: pointer; margin-top: 10px; }
 
-        /* --- Compact bKash Modal --- */
+        /* --- bKash Modal --- */
         #bkash-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; }
-        .bkash-content { background: #fff; width: 90%; max-width: 380px; border-radius: 10px; overflow: hidden; color: #333; padding-bottom: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        .bkash-content { background: #fff; width: 90%; max-width: 380px; border-radius: 10px; overflow: hidden; color: #333; padding-bottom: 15px; }
         
         .bkash-header { padding: 12px; text-align: center; border-bottom: 1px solid #f1f1f1; }
         .bkash-header img { width: 85px; }
@@ -74,8 +74,8 @@
     <div id="notify-box">🚀 Waiting for new orders...</div>
 
     <div class="box">
-        <h2>1. Player UID / Username</h2>
-        <input type="text" id="uid-input" placeholder="Enter ID here" oninput="updateID()">
+        <h2>1. Player UID</h2>
+        <input type="text" id="uid-input" placeholder="Enter UID here" oninput="updateID()">
     </div>
 
     <div class="box">
@@ -95,7 +95,7 @@
     <div class="box summary">
         <h2>3. Order Summary</h2>
         <p>Selected: <span id="sum-pack">-</span></p>
-        <p>ID/Username: <span id="sum-id">-</span></p>
+        <p>Player UID: <span id="sum-id">-</span></p>
         <div class="total">Total: ৳ <span id="sum-total">0</span></div>
         <button class="btn-buy" onclick="openPayment()">BUY NOW</button>
     </div>
@@ -131,7 +131,7 @@
     let notifyInterval;
     let lastMsgIndex = -1;
 
-    const fakeOrders = ["ID 4521***", "user rafi***", "UID 9982***", "user topup_pro***", "ID 1025***", "UID 7741***", "player_king***"];
+    const fakeOrders = ["UID 4521***", "UID 9982***", "UID 1025***", "UID 7741***", "UID 3321***"];
     function startFake() {
         notifyInterval = setInterval(() => {
             const notify = document.getElementById('notify-box');
