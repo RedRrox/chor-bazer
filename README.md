@@ -22,10 +22,11 @@
 
         .container { width: 95%; max-width: 450px; margin: 10px auto; padding-bottom: 20px; }
 
+        /* Order History Style */
         #notify-box { 
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); 
             padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center; 
-            font-weight: bold; color: var(--neon-green); font-size: 13px; transition: 0.5s;
+            font-weight: bold; color: var(--neon-green); font-size: 13px; transition: opacity 0.5s ease-in-out;
         }
 
         .box { background: var(--card-bg); border: 1px solid var(--border-color); padding: 15px; border-radius: 12px; margin-bottom: 12px; }
@@ -70,33 +71,27 @@
             background: #111; border: 1px solid var(--neon-green); width: 85%; max-width: 300px;
             padding: 30px; border-radius: 20px; text-align: center; transform: scale(0.7); animation: popIn 0.4s forwards;
         }
-        .checkmark-circle {
-            width: 80px; height: 80px; border-radius: 50%; display: block; stroke-width: 2;
-            stroke: var(--neon-green); stroke-miterlimit: 10; margin: 0 auto 20px; box-shadow: inset 0 0 0 var(--neon-green);
-            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
-        }
+        .checkmark-circle { width: 80px; height: 80px; border-radius: 50%; display: block; stroke-width: 2; stroke: var(--neon-green); margin: 0 auto 20px; }
         .checkmark-check { transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48; animation: stroke .3s cubic-bezier(0.65, 0, 0.45, 1) .8s forwards; }
 
         @keyframes stroke { 100% { stroke-dashoffset: 0; } }
-        @keyframes scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
-        @keyframes fill { 100% { box-shadow: inset 0 0 0 40px rgba(0, 255, 136, 0.1); } }
         @keyframes popIn { to { transform: scale(1); } }
 
-        /* --- Footer --- */
+        /* --- Glowing Footer --- */
         footer { text-align: center; padding: 25px 10px; margin-top: 20px; border-top: 1px solid var(--border-color); font-size: 10px; color: #666; background: #000; letter-spacing: 1px; }
         .glow-text { color: var(--neon-green); text-shadow: 0 0 8px rgba(0, 255, 136, 0.6); font-weight: bold; }
     </style>
 </head>
-<body>
+<body onload="startOrderHistory()">
 
 <header><div class="logo">CHOR BAZER</div></header>
 
 <div class="container">
-    <div id="notify-box">🚀 Secure System Active</div>
+    <div id="notify-box">🚀 Initializing Chor Bazer server...</div>
 
     <div class="box">
         <h2>1. Player UID</h2>
-        <input type="text" id="uid-input" placeholder="Enter UID here" oninput="updateID()">
+        <input type="text" id="uid-input" placeholder="Enter UID here">
     </div>
 
     <div class="box">
@@ -128,28 +123,28 @@
     <div class="bkash-content">
         <div class="bkash-header"><img src="bikashlogo.png" alt="bkash"></div>
         <div class="bkash-main-body">
-            <h3>ট্রান্সজেকশন আইডি দিন</h3>
-            <input type="text" id="trx-input" style="width:100%; padding:10px; margin-bottom:10px; border-radius:5px; border:none; text-align:center;">
+            <h3 style="margin-bottom:10px;">ট্রান্সজেকশন আইডি দিন</h3>
+            <input type="text" id="trx-input" style="width:100%; padding:10px; border-radius:5px; border:none; text-align:center;">
             <div class="bkash-steps">
-                <p>● <b>"Send Money"</b> করুনঃ <b>01779772201</b> <button onclick="copyNum()" style="padding:2px 5px; font-size:9px; cursor:pointer;">Copy</button></p>
+                <p>● <b>"Send Money"</b> করুনঃ <b>01779772201</b> <button onclick="copyNum()" style="padding:2px 5px; font-size:9px;">Copy</button></p>
                 <p>● টাকার পরিমাণঃ ৳ <b id="pay-amount">0</b></p>
                 <p>● পেমেন্ট শেষে ট্রানজেকশন আইডি উপরে দিন।</p>
             </div>
         </div>
         <button class="verify-red-btn" onclick="showSuccess()">VERIFY</button>
-        <button onclick="document.getElementById('bkash-modal').style.display='none'" style="width:100%; background:none; border:none; padding:10px; color:#999; font-size:10px; cursor:pointer;">CANCEL</button>
+        <button onclick="document.getElementById('bkash-modal').style.display='none'" style="width:100%; background:none; border:none; padding:10px; color:#999; font-size:10px;">CANCEL</button>
     </div>
 </div>
 
 <div id="success-popup">
     <div class="success-card">
         <svg class="checkmark-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
-            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+            <circle cx="26" cy="26" r="25" fill="none" stroke="var(--neon-green)" stroke-width="2"/>
+            <path class="checkmark-check" fill="none" stroke="var(--neon-green)" stroke-width="4" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
         </svg>
         <h3 style="color:var(--neon-green); margin-bottom:10px;">ORDER SUCCESS!</h3>
-        <p style="font-size:13px; color:#aaa;">Your top-up will be delivered in 30-40 mins.</p>
-        <button onclick="closeSuccess()" style="margin-top:20px; background:var(--neon-green); color:#000; border:none; padding:10px 20px; border-radius:5px; font-weight:bold; cursor:pointer;">CLOSE</button>
+        <p style="font-size:13px; color:#aaa;">Check Notification Box for updates.</p>
+        <button onclick="closeSuccess()" style="margin-top:20px; background:var(--neon-green); color:#000; border:none; padding:10px 20px; border-radius:5px; font-weight:bold;">CLOSE</button>
     </div>
 </div>
 
@@ -160,6 +155,22 @@
 <script>
     let selectedPrice = 0;
     let selectedPackName = "";
+    let notifyInterval;
+
+    // Order History Logic
+    const fakeData = ["UID 4521***", "UID 9982***", "UID 1002***", "UID 7745***", "UID 1025***", "UID 8821***", "UID 3341***"];
+    function startOrderHistory() {
+        notifyInterval = setInterval(() => {
+            const notify = document.getElementById('notify-box');
+            notify.style.opacity = '0';
+            setTimeout(() => {
+                const randomID = fakeData[Math.floor(Math.random() * fakeData.length)];
+                const randomPack = Math.random() > 0.5 ? 'Weekly' : 'Monthly';
+                notify.innerText = `✅ ${randomID} just bought ${randomPack}!`;
+                notify.style.opacity = '1';
+            }, 500);
+        }, 10000);
+    }
 
     function selectPack(el, name, price) {
         if(el.classList.contains('premium-card')) return;
@@ -171,23 +182,28 @@
     }
 
     function openPayment() {
-        if(!selectedPrice || !document.getElementById('uid-input').value) return alert("UID and Pack selection required!");
+        if(!selectedPrice || !document.getElementById('uid-input').value) return alert("Please enter UID & select a Pack!");
         document.getElementById('bkash-modal').style.display = 'flex';
     }
 
     function showSuccess() {
-        if(document.getElementById('trx-input').value.length < 5) return alert("Invalid TrxID!");
+        if(document.getElementById('trx-input').value.trim().length < 5) return alert("Invalid TrxID!");
         document.getElementById('bkash-modal').style.display = 'none';
         document.getElementById('success-popup').style.display = 'flex';
+        
+        // Update History Immediately on Success
+        clearInterval(notifyInterval);
+        const userUID = document.getElementById('uid-input').value;
+        const notify = document.getElementById('notify-box');
+        notify.innerHTML = `<span style="color:var(--neon-green)">🔥 SUCCESS! ${userUID} purchased ${selectedPackName}.</span>`;
     }
 
     function closeSuccess() {
         document.getElementById('success-popup').style.display = 'none';
-        location.reload(); 
+        startOrderHistory(); // Resume history
     }
 
     function copyNum() { navigator.clipboard.writeText("01779772201"); alert("Number Copied!"); }
-    function updateID() { }
 </script>
 
 </body>
