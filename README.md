@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHOR BAZER | FF UID TOP UP</title>
+    <title>CHOR BAZER | GAME TOP UP</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -20,7 +20,6 @@
 
         .container { max-width: 600px; margin: 20px auto; padding: 15px; }
 
-        /* Fake Order History Styling - Slow & Professional */
         #fake-notify { 
             background: rgba(204, 255, 0, 0.05); 
             border: 1px dashed var(--neon-yellow); 
@@ -44,6 +43,7 @@
         .item:hover { border-color: var(--neon-yellow); }
         .item.active { border-color: var(--neon-yellow); background: rgba(204, 255, 0, 0.08); }
         .item .price { color: var(--neon-yellow); font-weight: bold; font-size: 22px; display: block; }
+        .item .label { font-size: 14px; color: #fff; }
 
         .summary p { display: flex; justify-content: space-between; margin-bottom: 8px; color: #aaa; }
         .summary .total { color: var(--neon-yellow); font-size: 24px; font-weight: bold; border-top: 1px solid #333; padding-top: 10px; margin-top: 10px; }
@@ -54,7 +54,6 @@
         .method { flex: 1; padding: 15px; border: 1px solid #222; border-radius: 10px; text-align: center; cursor: pointer; position: relative; background: #000; display: flex; align-items: center; justify-content: center; min-height: 85px; }
         .method.active { border-color: var(--bkash-color); background: rgba(209, 32, 83, 0.05); }
 
-        /* bKash Modal */
         #bkash-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; }
         .bkash-content { background: #fff; width: 92%; max-width: 400px; border-radius: 12px; overflow: hidden; color: #000; }
         .bkash-header { background: #fff; padding: 15px; text-align: center; border-bottom: 1px solid #eee; display: flex; justify-content: center; }
@@ -65,7 +64,6 @@
         .instr b { color: var(--neon-yellow); }
         .trx-input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 6px; border: none; font-size: 18px; text-align: center; font-weight: bold; text-transform: uppercase; }
         
-        /* Copy Button */
         .copy-btn { background: #fff; color: #000; border: none; padding: 2px 8px; border-radius: 4px; font-size: 10px; cursor: pointer; margin-left: 10px; font-weight: bold; }
 
         .delivery-notice { background: #fff9c4; color: #d32f2f; padding: 10px; font-size: 12px; text-align: center; font-weight: bold; border-top: 1px dashed #ccc; }
@@ -83,20 +81,28 @@
     <div id="fake-notify">🚀 Waiting for new orders...</div>
 
     <div class="box">
-        <h2>1. Player UID</h2>
-        <input type="text" id="uid-input" placeholder="Enter Player UID" oninput="updateID()">
+        <h2>1. Player UID / Roblox ID</h2>
+        <input type="text" id="uid-input" placeholder="Enter Player ID" oninput="updateID()">
     </div>
 
     <div class="box">
         <h2>2. Select Pack</h2>
         <div class="grid">
             <div class="item" onclick="selectPack(this, 'Weekly Member', 140)">
-                <span>Weekly Member</span>
+                <span class="label">Weekly Member</span>
                 <span class="price">৳ 140</span>
             </div>
             <div class="item" onclick="selectPack(this, 'Monthly Member', 650)">
-                <span>Monthly Member</span>
+                <span class="label">Monthly Member</span>
                 <span class="price">৳ 650</span>
+            </div>
+            <div class="item" onclick="selectPack(this, '40 Robux', 50)">
+                <span class="label">40 Robux</span>
+                <span class="price">৳ 50</span>
+            </div>
+            <div class="item" onclick="selectPack(this, '400 Robux', 500)">
+                <span class="label">400 Robux</span>
+                <span class="price">৳ 500</span>
             </div>
         </div>
     </div>
@@ -112,10 +118,6 @@
             <div class="method active">
                 <div class="logo-crop"><img src="bikashlogo.png" alt="bkash"></div>
             </div>
-            <div class="method disabled">
-                <span style="position: absolute; top: -10px; right: -5px; background: #444; color: #fff; font-size: 10px; padding: 2px 8px; border-radius: 4px;">COMING SOON</span>
-                <img src="https://download.logo.wine/logo/Nagad/Nagad-Logo.wine.png" alt="nagad" style="width: 80px; opacity: 0.4;">
-            </div>
         </div>
         <button class="btn-buy" onclick="openPayment()">BUY NOW</button>
     </div>
@@ -130,12 +132,12 @@
             <p style="text-align: center; font-weight: bold; margin-bottom: 15px;">ট্রানজেকশন আইডি দিন</p>
             <input type="text" class="trx-input" id="trx-input" placeholder="TrxID এখানে দিন">
             <div class="instr">● "Send Money" এ ক্লিক করুন।</div>
-            <div class="instr">● নম্বরঃ <b id="target-num">01779772201</b> <button class="copy-btn" onclick="copyNum()">COPY</button></div>
+            <div class="instr">● নম্বরঃ <b id="target-num">017797722010</b> <button class="copy-btn" onclick="copyNum()">COPY</button></div>
             <div class="instr">● টাকার পরিমাণঃ ৳ <b id="pay-amount">0</b></div>
             <div class="instr">● পেমেন্ট হয়ে গেলে ট্রানজেকশন আইডি উপরের বক্সে দিন।</div>
         </div>
         <div class="delivery-notice">
-            ⚠️ পেমেন্ট সম্পন্ন হওয়ার ৩০-৪০ মিনিটের মধ্যে আপনার আইডিতে ডায়মন্ড চলে যাবে।
+            ⚠️ পেমেন্ট সম্পন্ন হওয়ার ৩০-৪০ মিনিটের মধ্যে আপনার আইডিতে প্যাক চলে যাবে।
         </div>
         <button class="verify-btn" onclick="verifyOrder()">VERIFY</button>
         <button onclick="document.getElementById('bkash-modal').style.display='none'" style="width: 100%; background: #f5f5f5; border: none; padding: 12px; cursor: pointer; color: #666; font-weight: bold;">CANCEL</button>
@@ -146,28 +148,26 @@
     let selectedPrice = 0;
     let selectedPackName = "";
 
-    // Fake Order Automation (10 Seconds Delay)
     const fakeData = [
         "ID 4521*** just bought Weekly!",
         "UID 9982*** received Monthly!",
         "Order #8841 for ID 1002*** completed!",
-        "Success! UID 7745*** got Weekly Member.",
-        "ID 1025*** just purchased Monthly!",
+        "Success! UID 7745*** got 40 Robux.",
+        "ID 1025*** just purchased 400 Robux!",
         "Flash Sale! ID 3365*** got Weekly Member."
     ];
 
     function updateFakeNotify() {
         const notify = document.getElementById('fake-notify');
-        notify.style.opacity = '0'; // Fade out
-        
+        notify.style.opacity = '0';
         setTimeout(() => {
             notify.innerText = "🔥 " + fakeData[Math.floor(Math.random() * fakeData.length)];
-            notify.style.opacity = '1'; // Fade in
+            notify.style.opacity = '1';
         }, 500);
     }
     
-    setInterval(updateFakeNotify, 10000); // ১০ সেকেন্ড পর পর পাল্টাবে
-    updateFakeNotify(); // Initial call
+    setInterval(updateFakeNotify, 10000);
+    updateFakeNotify();
 
     function copyNum() {
         const num = document.getElementById('target-num').innerText;
@@ -191,7 +191,7 @@
 
     function openPayment() {
         if(!document.getElementById('uid-input').value || selectedPrice === 0) {
-            alert("UID এবং প্যাক সিলেক্ট করুন!");
+            alert("ID এবং প্যাক সিলেক্ট করুন!");
             return;
         }
         document.getElementById('bkash-modal').style.display = 'flex';
