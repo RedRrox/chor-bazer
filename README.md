@@ -24,7 +24,7 @@
         .nav-btn {
             background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
             color: #fff; padding: 6px 15px; border-radius: 5px; font-size: 13px; cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
         .nav-btn:hover { background: var(--neon-yellow); color: #000; transform: translateX(3px); }
 
@@ -44,28 +44,29 @@
         input[type="text"] { width: 100%; padding: 12px; background: #000; border: 1px solid #333; color: var(--neon-yellow); border-radius: 8px; text-align: center; font-weight: bold; outline: none; }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .item { background: rgba(0,0,0,0.5); border: 1px solid var(--border-color); padding: 15px; border-radius: 10px; text-align: center; cursor: pointer; position: relative; }
+        .item { background: rgba(0,0,0,0.5); border: 1px solid var(--border-color); padding: 15px; border-radius: 10px; text-align: center; cursor: pointer; position: relative; overflow: hidden; }
         .item.active { border-color: var(--neon-green); background: rgba(0, 255, 136, 0.05); }
         .price { color: var(--neon-green); font-weight: bold; font-size: 18px; display: block; }
 
-        /* Special Pack UI */
+        /* Special Pack Styles */
         .special-badge { position: absolute; top: 0; left: 0; background: #ff4444; color: #fff; font-size: 8px; font-weight: 800; padding: 2px 8px; border-radius: 0 0 8px 0; }
         .premium-card { grid-column: span 2; border: 1px solid #ff4444 !important; opacity: 0.8; cursor: not-allowed; }
         .stock-tag { background: #ff4444; color: #fff; font-size: 9px; padding: 1px 6px; border-radius: 4px; margin-top: 4px; display: inline-block; }
 
         .btn-buy { width: 100%; padding: 14px; background: var(--neon-yellow); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
 
-        /* --- bKash Modal --- */
+        /* --- Original bKash Modal --- */
         #bkash-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; justify-content: center; align-items: center; }
         .bkash-content { background: #fff; width: 92%; max-width: 340px; border-radius: 12px; overflow: hidden; color: #333; padding-bottom: 12px; }
         .bkash-header { padding: 8px; text-align: center; border-bottom: 1px solid #eee; }
         .bkash-header img { width: 70px; }
         .bkash-main-body { background: #d12053; color: #fff; padding: 12px; margin: 0 10px; border-radius: 8px; text-align: center; }
         .bkash-steps { text-align: left; font-size: 11px; line-height: 1.5; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px; margin-top: 10px; }
+        .trx-input-box { width: 100%; padding: 8px; border-radius: 4px; border: none; margin-bottom: 10px; text-align: center; font-weight: bold; color: #000; outline: none; }
         .verify-red-btn { width: 90%; margin: 10px auto 0; display: block; padding: 12px; background: #d00000; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; }
 
         /* Success Popup */
-        #success-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; }
+        #success-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
         .success-card { background: #111; border: 1px solid var(--neon-green); width: 85%; max-width: 300px; padding: 30px; border-radius: 20px; text-align: center; }
 
         footer { text-align: center; padding: 25px 10px; border-top: 1px solid var(--border-color); font-size: 10px; background: #000; }
@@ -84,7 +85,7 @@
 </header>
 
 <div id="home" class="page active">
-    <div id="notify-box">🚀 Secure Top-Up Active</div>
+    <div id="notify-box">🚀 Waiting for new orders...</div>
     <div class="box">
         <h2>1. Player UID</h2>
         <input type="text" id="uid-input" placeholder="Enter Player UID here">
@@ -115,16 +116,20 @@
 <div id="about" class="page">
     <div class="box">
         <h2>About Chor Bazer</h2>
-        <p style="color:#ccc; line-height:1.6;">Welcome to <b>Chor Bazer</b>, the most trusted gaming top-up platform in Bangladesh. We provide Free Fire Membership and Diamonds with speed and security.</p>
-        <p style="color:#ccc; margin-top:10px;">✅ Fast Delivery<br>✅ 24/7 Support</p>
+        <div style="line-height:1.6; color:#ccc;">
+            <p>Welcome to <b>Chor Bazer</b>, the most trusted gaming top-up platform in Bangladesh.</p><br>
+            <p>We provide Free Fire Membership and Diamonds with speed and security.</p><br>
+            <p>✅ Fast Delivery (Removed Super)<br>✅ 24/7 Support</p>
+        </div>
     </div>
 </div>
 
 <div id="contact" class="page">
     <div class="box">
         <h2>Contact Us</h2>
-        <button style="width:100%; padding:12px; background:#0088cc; color:#fff; border:none; border-radius:8px; font-weight:bold;">Message on WhatsApp</button>
-        <p style="text-align:center; font-size:12px; margin-top:15px; color:#666;">Email: support@chorbazer.com</p>
+        <p style="text-align:center; color:#ccc; margin-bottom:10px;">For any issues, contact us:</p>
+        <button style="width:100%; padding:12px; background:#0088cc; color:#fff; border:none; border-radius:8px; font-weight:bold; cursor:default;">Message on WhatsApp</button>
+        <p style="margin-top:15px; font-size:13px; text-align:center; color:#666;">Email: support@chorbazer.com</p>
     </div>
 </div>
 
@@ -133,23 +138,23 @@
         <div class="bkash-header"><img src="bikashlogo.png" alt="bkash"></div>
         <div class="bkash-main-body">
             <h3>ট্রান্সজেকশন আইডি দিন</h3>
-            <input type="text" id="trx-input" style="width:100%; padding:8px; border-radius:4px; border:none; margin:10px 0; text-align:center; font-weight:bold;">
+            <input type="text" class="trx-input-box" id="trx-input">
             <div class="bkash-steps">
                 <p>● <b>"Send Money"</b> করুনঃ <b>01779772201</b> <button onclick="copyNum()" style="padding:1px 5px; font-size:9px;">Copy</button></p>
                 <p>● টাকার পরিমাণঃ ৳ <b id="pay-amount">0</b></p>
-                <p>● পেমেন্ট শেষে TrxID টি উপরে বসিয়ে ভেরিফাই করুন।</p>
+                <p>● নিশ্চিত করতে আপনার bKash পিন দিন এবং TrxID কপি করে এখানে বসান।</p>
             </div>
         </div>
-        <button class="verify-red-btn" onclick="verifyOrder()">VERIFY</button>
-        <button onclick="document.getElementById('bkash-modal').style.display='none'" style="width:100%; background:none; border:none; color:#999; font-size:10px; margin-top:5px;">CANCEL</button>
+        <button class="verify-red-btn" onclick="handleRealOrder()">VERIFY</button>
+        <button onclick="document.getElementById('bkash-modal').style.display='none'" style="width:100%; background:none; border:none; padding:10px; color:#999; font-size:10px;">CANCEL</button>
     </div>
 </div>
 
 <div id="success-popup">
     <div class="success-card">
         <h2 style="color:var(--neon-green)">ORDER SUCCESS!</h2>
-        <p style="color:#aaa; margin:15px 0;">Processing your delivery...</p>
-        <button onclick="closeSuccess()" style="padding:10px 25px; background:var(--neon-green); color:#000; border:none; border-radius:5px; font-weight:bold;">CLOSE</button>
+        <p style="margin:15px 0; color:#aaa;">Processing your top-up...</p>
+        <button onclick="closeSuccess()" style="background:var(--neon-green); color:#000; border:none; padding:10px 25px; border-radius:5px; font-weight:bold; cursor:pointer;">CLOSE</button>
     </div>
 </div>
 
@@ -159,46 +164,61 @@
 
 <script>
     let selectedPrice = 0;
-    let selectedPack = "";
+    let selectedPackName = "";
+    let notifyInterval;
 
-    function showPage(p) {
-        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-        document.getElementById(p).classList.add('active');
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
     }
 
     function selectPack(el, name, price) {
         if(el.classList.contains('premium-card')) return;
         document.querySelectorAll('.item').forEach(i => i.classList.remove('active'));
         el.classList.add('active');
-        selectedPrice = price; selectedPack = name;
+        selectedPrice = price; selectedPackName = name;
         document.getElementById('sum-total').innerText = price;
         document.getElementById('pay-amount').innerText = price;
     }
 
     function openPayment() {
-        const uid = document.getElementById('uid-input').value;
-        if(!selectedPrice || !uid) return alert("UID ও প্যাক সিলেক্ট করুন!");
+        if(!selectedPrice || !document.getElementById('uid-input').value) return alert("UID ও প্যাক সিলেক্ট করুন!");
         document.getElementById('bkash-modal').style.display = 'flex';
     }
 
-    function verifyOrder() {
+    // Real Order History Logic
+    function handleRealOrder() {
         const trx = document.getElementById('trx-input').value;
-        if(trx.length < 5) return alert("Invalid TrxID!");
+        const uid = document.getElementById('uid-input').value;
+        if(trx.length < 5) return alert("ভুল TrxID!");
         
         document.getElementById('bkash-modal').style.display = 'none';
         document.getElementById('success-popup').style.display = 'flex';
         
+        // Show Real Order in History Box
+        clearInterval(notifyInterval);
         const notify = document.getElementById('notify-box');
-        const uid = document.getElementById('uid-input').value;
-        notify.innerHTML = `<span style="color:var(--neon-green)">🔥 SUCCESS! ${uid} just bought ${selectedPack}.</span>`;
+        notify.innerHTML = `<span style="color:var(--neon-green)">🔥 SUCCESS! ${uid} just bought ${selectedPackName}.</span>`;
     }
 
     function closeSuccess() {
         document.getElementById('success-popup').style.display = 'none';
-        location.reload();
+        startOrderHistory(); // Resume fake history after real order
     }
 
-    function copyNum() { navigator.clipboard.writeText("01779772201"); alert("Copied!"); }
-
     function startOrderHistory() {
-        const fakes = ["UID 4521***", "UID 9982***", "UID 1025***", "UID 7741***", "UID 3025***"];
+        const fakes = ["UID 4521***", "UID 9982***", "UID 1025***", "UID 7745***"];
+        notifyInterval = setInterval(() => {
+            const notify = document.getElementById('notify-box');
+            notify.style.opacity = '0';
+            setTimeout(() => {
+                notify.innerText = `✅ ${fakes[Math.floor(Math.random() * fakes.length)]} bought ${Math.random()>0.5?'Weekly':'Monthly'}!`;
+                notify.style.opacity = '1';
+            }, 500);
+        }, 10000);
+    }
+
+    function copyNum() { navigator.clipboard.writeText("01779772201"); alert("Number Copied!"); }
+</script>
+</body>
+</html>
