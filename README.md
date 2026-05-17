@@ -7,11 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --purple-main: #6a0dad; /* রাজকীয় বেগুনি */
+            --purple-main: #6a0dad; 
             --purple-light: #f5f3ff;
             --white: #ffffff;
             --text-dark: #1f2937;
             --bkash-color: #d12053;
+            --nagad-color: #f26522;
             --border: #e5e7eb;
             --whatsapp-color: #25d366;
             --telegram-color: #0088cc;
@@ -19,21 +20,19 @@
             --alert-border: #ffedd5;
             --alert-text: #c2410c;
             --success-green: #15803d;
-            --blue-notice-bg: #e0f2fe; /* হালকা নীল ব্যাকগ্রাউন্ড */
-            --blue-notice-border: #0284c7; /* গাঢ় নীল বর্ডার */
-            --blue-notice-text: #0369a1; /* নীল টেক্সট কালার */
+            --blue-notice-bg: #e0f2fe; 
+            --blue-notice-border: #0284c7; 
+            --blue-notice-text: #0369a1; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--white); color: var(--text-dark); overflow-x: hidden; width: 100%; }
 
-        /* পেজ ট্রানজিশন স্মুথ স্লাইড এবং ফেড অ্যানিমেশন */
         @keyframes slidePageIn {
             from { opacity: 0; transform: translateY(25px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* টপ নোটিশ বার */
         .top-notice-bar {
             background: var(--blue-notice-bg);
             border-bottom: 2px solid var(--blue-notice-border);
@@ -59,10 +58,8 @@
             font-size: 22px;
             cursor: pointer;
             color: var(--blue-notice-text);
-            transition: color 0.2s ease;
             user-select: none;
         }
-        .close-notice-btn:hover { color: #d00000; }
 
         header { background: var(--purple-main); padding: 15px 0; text-align: center; border-bottom: 3px solid #4c1d95; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .logo { font-family: 'Poppins', sans-serif; font-size: clamp(1.2rem, 5vw, 1.8rem); color: var(--white); letter-spacing: 2px; font-weight: 700; cursor: pointer; }
@@ -85,7 +82,6 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: opacity 0.5s ease;
         }
 
-        /* মোবাইল স্ক্রিনবান্ধব ২x২ ইমেজ গ্রিড */
         .category-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -94,34 +90,13 @@
         }
 
         .category-image-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-            text-align: center;
+            background: var(--white); border: 1px solid var(--border); border-radius: 16px;
+            overflow: hidden; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.2s; text-align: center;
         }
-        .category-image-card:hover {
-            transform: scale(1.02);
-            box-shadow: 0 6px 15px rgba(106, 13, 173, 0.15);
-        }
-        .category-image-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-        }
-        .category-card-title {
-            padding: 10px 5px;
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--text-dark);
-            font-family: 'Poppins', sans-serif;
-            text-transform: uppercase;
-            border-top: 1px solid #f3f4f6;
-        }
+        .category-image-card:hover { transform: scale(1.02); box-shadow: 0 6px 15px rgba(106, 13, 173, 0.15); }
+        .category-image-card img { width: 100%; height: auto; display: block; object-fit: cover; }
+        .category-card-title { padding: 10px 5px; font-size: 13px; font-weight: bold; color: var(--text-dark); font-family: 'Poppins', sans-serif; text-transform: uppercase; border-top: 1px solid #f3f4f6; }
 
         .box { background: var(--white); border: 1px solid var(--border); padding: 20px; border-radius: 16px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
         h2 { font-size: 15px; margin-bottom: 15px; color: var(--purple-main); text-transform: uppercase; border-left: 4px solid var(--purple-main); padding-left: 10px; font-family: 'Poppins', sans-serif; }
@@ -145,13 +120,63 @@
         .btn-buy { width: 100%; padding: 16px; background: var(--purple-main); color: #fff; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; text-transform: uppercase; font-size: 16px; transition: 0.3s; }
         .btn-buy:hover { background: #4c1d95; box-shadow: 0 6px 15px rgba(106, 13, 173, 0.3); }
 
-        /* Rules Dynamic Box Style */
+        /* পেমেন্ট গেটওয়ে সিলেকশন গ্রিড */
+        .payment-method-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .pay-method-card {
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            background: #fafafa;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 65px;
+        }
+        .pay-method-card img {
+            height: 35px;
+            width: auto;
+            object-fit: contain;
+        }
+        .pay-method-card.active {
+            border-color: var(--purple-main);
+            background: var(--purple-light);
+        }
+        /* নগদ লকড / সুন স্টাইল */
+        .pay-method-card.disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            background: #f3f4f6;
+            border-color: #e5e7eb;
+        }
+        .soon-badge {
+            position: absolute;
+            top: -8px;
+            right: -5px;
+            background: #ef4444;
+            color: white;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 7px;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            text-transform: uppercase;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
         .rules-container { background: var(--alert-bg); border: 1px solid var(--alert-border); border-radius: 12px; padding: 15px; margin-top: 15px; }
         .rules-title { font-family: 'Poppins', sans-serif; font-weight: bold; color: var(--alert-text); font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
         .rules-list { font-size: 13px; color: #4a5568; line-height: 1.6; list-style: none; text-align: left; }
         .rules-list li { margin-bottom: 8px; position: relative; padding-left: 5px; }
 
-        /* Contact & About Styling */
         .about-text { font-size: 15px; line-height: 1.6; color: #4b5563; text-align: justify; margin-bottom: 15px; font-family: 'Poppins', sans-serif; }
         .support-badge { background: #10b981; color: white; display: inline-block; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; margin-top: 10px; }
         
@@ -165,7 +190,7 @@
         .whatsapp { background: var(--whatsapp-color); box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2); }
         .telegram { background: var(--telegram-color); box-shadow: 0 4px 12px rgba(0, 136, 204, 0.2); }
 
-        /* Payment Modal */
+        /* bKash Modal */
         #bkash-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .bkash-content { background: #fff; width: 92%; max-width: 360px; border-radius: 20px; overflow: hidden; color: #333; padding-bottom: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         .bkash-header { padding: 15px; text-align: center; background: #f8f9fa; border-bottom: 1px solid #eee; }
@@ -174,7 +199,7 @@
         .trx-input-box { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #eee; margin-bottom: 10px; text-align: center; font-weight: bold; color: #000; outline: none; font-size: 15px; }
         .verify-red-btn { width: 90%; margin: 10px auto 0; display: block; padding: 14px; background: #d00000; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 8px; font-size: 16px; }
 
-        /* প্রিমিয়াম সাকসেস পপআপ এবং নতুন গ্রিন কালার অ্যানিমেশন */
+        /* অ্যানিমেটেড সবুজ সাকসেস পপআপ */
         #success-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
         .success-card { 
             background: var(--white); width: 85%; max-width: 360px; padding: 35px 20px; 
@@ -190,7 +215,7 @@
         
         .success-text-bold { color: var(--success-green); font-size: 21px; font-weight: 800; font-family: 'Poppins', sans-serif; margin-bottom: 12px; }
         .success-text-sub { color: #374151; font-size: 15px; font-weight: 500; font-family: 'Poppins', sans-serif; line-height: 1.6; margin-bottom: 20px; }
-        .contact-urgent { color: #dc2626; font-size: 14px; font-weight: bold; font-family: 'Poppins', sans-serif; border-top: 1px solid #f3f4f6; padding-top: 15px; margin-top: 5px; }
+        .contact-urgent { color: #dc2626; font-size: 15px; font-weight: bold; font-family: 'Poppins', sans-serif; border-top: 1px solid #f3f4f6; padding-top: 15px; margin-top: 5px; }
 
         footer { text-align: center; padding: 30px 10px; border-top: 1px solid #eee; font-size: 13px; background: #f9fafb; color: #6b7280; font-weight: bold; }
         .footer-purple { color: var(--purple-main); font-weight: bold; }
@@ -214,7 +239,6 @@
 
 <div id="home" class="page active">
     <div id="notify-box">🔄 Loading last order details...</div>
-    
     <div style="margin-bottom: 15px; font-weight: bold; color: var(--purple-main); font-family: 'Poppins'; text-transform: uppercase; font-size: 14px;">Select Game / Category</div>
     
     <div class="category-grid">
@@ -222,17 +246,14 @@
             <img src="ffuidtopup.jpg" alt="Free Fire UID TopUp">
             <div class="category-card-title">UID Top Up</div>
         </div>
-        
         <div class="category-image-card" onclick="openCategory('Free Fire Membership')">
             <img src="ffmember.jpg" alt="Free Fire Membership">
             <div class="category-card-title">Membership</div>
         </div>
-        
         <div class="category-image-card" onclick="openCategory('Evo Access UID')">
             <img src="evoacces.jpg" alt="Evo Access UID">
             <div class="category-card-title">Evo Access</div>
         </div>
-        
         <div class="category-image-card" onclick="openCategory('Level Up Pass')">
             <img src="lvlup.jpg" alt="Level Up Pass">
             <div class="category-card-title">Level Up Pass</div>
@@ -250,8 +271,20 @@
     
     <div class="box">
         <h2 id="pack-title">2. Select Recharge</h2>
-        <div class="grid" id="pack-grid">
+        <div class="grid" id="pack-grid"></div>
+    </div>
+
+    <div class="box">
+        <h2>3. Select Payment Method</h2>
+        <div class="payment-method-grid">
+            <div class="pay-method-card active" id="method-bkash" onclick="selectPaymentMethod('bkash')">
+                <img src="https://www.logo.wine/a/logo/BKash/BKash-Logo.wine.svg" alt="bKash">
             </div>
+            <div class="pay-method-card disabled" id="method-nagad">
+                <img src="https://www.vectorlogo.zone/logos/nagad/nagad-ar21.svg" alt="Nagad">
+                <span class="soon-badge">Soon</span>
+            </div>
+        </div>
     </div>
     
     <div class="box">
@@ -261,40 +294,25 @@
 
     <div class="rules-container" id="dynamic-rules-box">
         <div class="rules-title">⚠️ Rules & Conditions</div>
-        <ul class="rules-list" id="rules-content-list">
-            </ul>
+        <ul class="rules-list" id="rules-content-list"></ul>
     </div>
 </div>
 
 <div id="about" class="page">
     <div class="box">
         <h2>About CHOR BAZAR</h2>
-        <p class="about-text">
-            Welcome to <b>CHOR BAZAR</b>, your premium destination for instant gaming top-ups. We provide the fastest, safest, and most reliable Weekly and Monthly memberships for your favorite games. 
-        </p>
-        <p class="about-text">
-            Our mission is to ensure a smooth and hassle-free transaction experience so you can focus on your gaming without any interruptions. With an automated system and trusted payment verification, your resources are delivered safely to your account in no time.
-        </p>
-        <div style="text-align: center;">
-            <span class="support-badge">⚡ 24/7 Support Available</span>
-        </div>
+        <p class="about-text">Welcome to <b>CHOR BAZAR</b>, your premium destination for instant gaming top-ups. We provide the fastest, safest, and most reliable Weekly and Monthly memberships for your favorite games.</p>
+        <p class="about-text">Our mission is to ensure a smooth and hassle-free transaction experience so you can focus on your gaming without any interruptions.</p>
+        <div style="text-align: center;"><span class="support-badge">⚡ 24/7 Support Available</span></div>
     </div>
 </div>
 
 <div id="contact" class="page">
     <div class="box">
         <h2>Contact Us</h2>
-        <p class="about-text" style="text-align: center; margin-bottom: 20px;">
-            Need help with your order? Feel free to reach out to our dedicated support team anytime through the platforms below:
-        </p>
-        
-        <a href="https://wa.me/8801707566410" target="_blank" class="contact-btn whatsapp">
-            💬 Connect via WhatsApp
-        </a>
-        
-        <a href="https://t.me/RedRrox" target="_blank" class="contact-btn telegram">
-            ✈ Connect via Telegram
-        </a>
+        <p class="about-text" style="text-align: center; margin-bottom: 20px;">Need help with your order? Feel free to reach out to our dedicated support team anytime through the platforms below:</p>
+        <a href="https://wa.me/8801707566410" target="_blank" class="contact-btn whatsapp">💬 Connect via WhatsApp</a>
+        <a href="https://t.me/RedRrox" target="_blank" class="contact-btn telegram">✈ Connect via Telegram</a>
     </div>
 </div>
 
@@ -321,8 +339,8 @@
         <div class="success-icon">✓</div>
         <div class="success-text-bold">আপনার অর্ডারটি সফল হয়েছে!</div>
         <div class="success-text-sub">কিছুক্ষণ এর মধ্যে আপনার অর্ডারটি কমপ্লিট হবে।</div>
-        <div class="contact-urgent">কানো প্রকার প্রবলেম হলে contact করুন</div>
-        <button onclick="closeSuccess()" style="background:var(--purple-main); color:#fff; border:none; padding:13px 40px; border-radius:12px; font-weight:bold; cursor:pointer; width: 100%; margin-top: 15px; font-size: 15px;">ঠিক আছে</button>
+        <div class="contact-urgent">কোনো প্রকার সমস্যা হলে contact করুন।</div>
+        <button onclick="closeSuccess()" style="background:var(--purple-main); color:#fff; border:none; padding:13px 40px; border-radius:12px; font-weight:bold; cursor:pointer; width: 100%; margin-top: 20px; font-size: 15px;">ঠিক আছে</button>
     </div>
 </div>
 
@@ -335,62 +353,36 @@
     let selectedPackName = "";
     let activeCategory = ""; 
     let lastLoadedTxID = ""; 
+    let selectedMethod = "bkash";
 
     const SHEETDB_API_URL = "https://sheetdb.io/api/v1/6oyklgob3u2fr"; 
 
-    // ১. ফ্রি ফায়ার ইউআইডি টপ-আপ প্যাকের ডেটা
     const ffUidPacks = [
-        { name: "25 Diamond", price: 23 },
-        { name: "50 Diamond", price: 38 },
-        { name: "115 Diamond", price: 80 },
-        { name: "240 Diamond", price: 160 },
-        { name: "355 Diamond", price: 240 },
-        { name: "480 Diamond", price: 319 },
-        { name: "610 Diamond", price: 405 },
-        { name: "850 Diamond", price: 560 },
-        { name: "1240 Diamond", price: 805 },
-        { name: "2530 Diamond", price: 1615 },
-        { name: "5060 Diamond", price: 3225 },
-        { name: "10120 Diamond", price: 6445 },
-        { name: "Monthly", price: 800 },
-        { name: "Weekly Lite", price: 50 },
-        { name: "Weekly", price: 160 },
-        { name: "2xWeekly", price: 320 },
-        { name: "2xMonthly", price: 1600 }
+        { name: "25 Diamond", price: 23 }, { name: "50 Diamond", price: 38 }, { name: "115 Diamond", price: 80 },
+        { name: "240 Diamond", price: 160 }, { name: "355 Diamond", price: 240 }, { name: "480 Diamond", price: 319 },
+        { name: "610 Diamond", price: 405 }, { name: "850 Diamond", price: 560 }, { name: "1240 Diamond", price: 805 },
+        { name: "2530 Diamond", price: 1615 }, { name: "5060 Diamond", price: 3225 }, { name: "10120 Diamond", price: 6445 },
+        { name: "Monthly", price: 800 }, { name: "Weekly Lite", price: 50 }, { name: "Weekly", price: 160 },
+        { name: "2xWeekly", price: 320 }, { name: "2xMonthly", price: 1600 }
     ];
 
-    // ২. ফ্রি ফায়ার মেম্বারশিপ প্যাকের ডেটা
     const ffMembershipPacks = [
-        { name: "Weekly Lite", price: 50 },
-        { name: "Weekly", price: 160 },
-        { name: "Monthly", price: 800 },
-        { name: "2X Weekly", price: 320 },
-        { name: "3X Weekly", price: 480 },
-        { name: "2X Monthly", price: 1600 },
-        { name: "1Weekly + 1Monthly", price: 960 },
-        { name: "2X Weekly Lite", price: 100 },
-        { name: "5xWeekly", price: 800 }
+        { name: "Weekly Lite", price: 50 }, { name: "Weekly", price: 160 }, { name: "Monthly", price: 800 },
+        { name: "2X Weekly", price: 320 }, { name: "3X Weekly", price: 480 }, { name: "2X Monthly", price: 1600 },
+        { name: "1Weekly + 1Monthly", price: 960 }, { name: "2X Weekly Lite", price: 100 }, { name: "5xWeekly", price: 800 }
     ];
 
-    // ৩. ইভো অ্যাক্সেস প্যাকের ডেটা
     const evoAccessPacks = [
-        { name: "3 Days Evo Access", price: 90 },
-        { name: "7 Days Evo Access", price: 130 },
-        { name: "30 Days Evo Access", price: 340 }
+        { name: "3 Days Evo Access", price: 90 }, { name: "7 Days Evo Access", price: 130 }, { name: "30 Days Evo Access", price: 340 }
     ];
 
-    // ৪. লেভেল আপ পাস প্যাকের ডেটা
     const levelUpPacks = [
-        { name: "Level Up Package - Level 6", price: 50 },
-        { name: "Level Up Package - Level 10", price: 80 },
-        { name: "Level Up Package - Level 15", price: 80 },
-        { name: "Level Up Package - Level 20", price: 80 },
-        { name: "Level Up Package - Level 25", price: 80 },
-        { name: "Level Up Package - Level 30", price: 110 },
+        { name: "Level Up Package - Level 6", price: 50 }, { name: "Level Up Package - Level 10", price: 80 },
+        { name: "Level Up Package - Level 15", price: 80 }, { name: "Level Up Package - Level 20", price: 80 },
+        { name: "Level Up Package - Level 25", price: 80 }, { name: "Level Up Package - Level 30", price: 110 },
         { name: "Full Level Up Pass", price: 430 }
     ];
 
-    // প্রতিটা ক্যাটাগরির জন্য আলাদা রুলস টেক্সট ডেটাবেজ
     const rulesData = {
         'FreeFire UID TopUp': [
             "⦿ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে।",
@@ -413,23 +405,18 @@
         'Level Up Pass': [
             "⦿ যারা আগে ৩০ লেভেল পর্যন্ত ৮০০ ডায়মন্ড এর Level Up Pass নিয়েছেন, তারা আর নিতে পারবেন না।",
             "⦿ একটা আইডিতে একবারই নিতে পারবেন, একবার নেওয়া হলে, ভবিষ্যতে সেই একই আইডিতে আর নিতে পারবেন না।",
-            "⦿ নতুন Level Up Pass প্রত্যেক লেভেলের (LV.6 ,10, 15, 20, 25, 30) জন্য আলাদা করে অর্ডার করতে হবে। আগের মত একটা অর্ডার করে, সবগুলো লেভেলের জন্য ডায়মন্ড পাবেন না।",
-            "⦿ আপনার আইডির লেভেল বেশি হলে কম লেভেল এর জন্য অর্ডার করা যাবে যদি আগে সেটা না নেয়া হয়ে থাকে। কিন্তু, আইডির লেভেল কম হলে বেশি লেভেল এর জন্য আগে থেকেই অর্ডার করতে পারবেন না। লেভেল বাড়লে সেটা অর্ডার করতে পারবেন। (উদাহরনঃ যদি আইডি লেভেল 9 থাকে, তাহলে 6 লেভেলের লেভেলে আপ পাস না নিয়ে থাকলে সেটা অর্ডার করতে পারেন, কিন্তু 10 লেভেলের জন্য অর্ডার করা যাবে না। 10 Level এ যাওয়ার পরেই সেটা অর্ডার করা যাবে।)",
+            "⦿ নতুন Level Up Pass প্রত্যেক লেভেলের (LV.6 ,10, 15, 20, 25, 30) জন্য আলাদা করে অর্ডার করতে হবে।",
             "📊 Level Details: LV 6 (120💎) | LV 10 (200💎) | LV 15 (200💎) | LV 20 (200💎) | LV 25 (200💎) | LV 30 (350💎) = Total : 1270 Diamond.",
-            "⦿ শুধুমাত্র Bangladesh সার্ভারের Player ID/UID দিয়ে Top Up করা যাবে। অন্য সার্ভারের Player ID/UID হলে অর্ডার করবেন না।",
-            "⦿ Player ID Code/UID ভুল দিয়ে Diamond না পেলে কর্তৃপক্ষ দায়ী নয় ।",
-            "⦿ ইভেন্ট টাইমে কিছুটা সময় লাগতে পারে তাই ধৈর্য হারা হবেন না।"
+            "⦿ Player ID Code/UID ভুল দিয়ে Diamond না পেলে authority দায়ী নয় ।"
         ]
     };
 
-    function closeTopNotice() {
-        document.getElementById('top-announcement-bar').style.display = 'none';
-    }
+    function closeTopNotice() { document.getElementById('top-announcement-bar').style.display = 'none'; }
 
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' }); // পেজ পরিবর্তনের সময় স্ক্রল উপরে চলে যাবে
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         if(pageId === 'home') {
             selectedPrice = 0; selectedPackName = "";
             document.getElementById('sum-total').innerText = 0;
@@ -440,7 +427,6 @@
     function openCategory(categoryName) {
         activeCategory = categoryName;
         document.getElementById('pack-title').innerText = "2. Select Recharge";
-        
         const grid = document.getElementById('pack-grid');
         grid.innerHTML = ""; 
         
@@ -462,11 +448,8 @@
         const rulesListHTML = document.getElementById('rules-content-list');
         rulesListHTML.innerHTML = "";
         if(rulesData[categoryName]) {
-            rulesData[categoryName].forEach(rule => {
-                rulesListHTML.innerHTML += `<li>${rule}</li>`;
-            });
+            rulesData[categoryName].forEach(rule => { rulesListHTML.innerHTML += `<li>${rule}</li>`; });
         }
-        
         showPage('pack-page');
     }
 
@@ -476,6 +459,14 @@
         selectedPrice = price; selectedPackName = name;
         document.getElementById('sum-total').innerText = price;
         document.getElementById('pay-amount').innerText = price;
+    }
+
+    function selectPaymentMethod(method) {
+        // নগদ ডিসেবলড তাই শুধু বিকাশ সিলেক্ট করা যাবে
+        if(method === 'bkash') {
+            selectedMethod = "bkash";
+            document.getElementById('method-bkash').classList.add('active');
+        }
     }
 
     function openPayment() {
@@ -524,7 +515,6 @@
                 document.getElementById('trx-input').value = "";
                 document.getElementById('customer-phone').value = "";
                 document.getElementById('uid-input').value = "";
-                
                 updateNotifyBox(uid, selectedPackName);
                 lastLoadedTxID = trx.toUpperCase();
             }
@@ -545,9 +535,7 @@
             notify.style.opacity = '0';
             setTimeout(() => {
                 let maskedUID = uid;
-                if(uid.length > 4) {
-                    maskedUID = uid.substring(0, uid.length - 4) + "****";
-                }
+                if(uid.length > 4) { maskedUID = uid.substring(0, uid.length - 4) + "****"; }
                 notify.innerHTML = `🔥 Last Order: <span style="color:#6a0dad">${maskedUID}</span> bought <b>${pack}</b>!`;
                 notify.style.opacity = '1';
             }, 500);
@@ -565,7 +553,6 @@
                 if (currentTxID !== lastLoadedTxID) {
                     const uid = lastOrder['Player UID'] || lastOrder['UID'] || "Unknown";
                     const pack = lastOrder['Selected Pack'] || lastOrder['Pack'] || "Pack";
-                    
                     updateNotifyBox(uid, pack);
                     lastLoadedTxID = currentTxID; 
                 }
@@ -581,13 +568,8 @@
         setInterval(fetchLiveLastOrder, 12000); 
     }
 
-    document.getElementById('customer-phone').addEventListener('input', function (e) {
-        this.value = this.value.replace(/[^0-9]/g, '');
-    });
-
-    document.getElementById('uid-input').addEventListener('input', function (e) {
-        this.value = this.value.replace(/[^0-9]/g, '');
-    });
+    document.getElementById('customer-phone').addEventListener('input', function (e) { this.value = this.value.replace(/[^0-9]/g, ''); });
+    document.getElementById('uid-input').addEventListener('input', function (e) { this.value = this.value.replace(/[^0-9]/g, ''); });
 </script>
 </body>
 </html>
