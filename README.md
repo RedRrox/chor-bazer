@@ -310,7 +310,7 @@
     <div class="box">
         <h2>Contact Us</h2>
         <p class="about-text" style="text-align: center; margin-bottom: 20px;">Need help with your order? Feel free to reach out to our dedicated support team anytime through the platforms below:</p>
-        <a href="https://wa.me/8801707566410" target="_blank" class="contact-btn whatsapp">💬 Connect via WhatsApp</a>
+        <a href="https://wa.me/" target="_blank" class="contact-btn whatsapp">💬 Connect via WhatsApp</a>
         <a href="https://t.me/RedRrox" target="_blank" class="contact-btn telegram">✈ Connect via Telegram</a>
     </div>
 </div>
@@ -336,7 +336,7 @@
 <div id="success-popup">
     <div class="success-card">
         <div class="success-icon">✓</div>
-        <div class="success-text-bold">আপনার অর্ডারটি সফল হয়েছে!</div>
+        <div class="success-text-bold">আপনার অর্ডারটি সফল হয়েছে!</div>
         <div class="success-text-sub">কিছুক্ষণ এর মধ্যে আপনার অর্ডারটি কমপ্লিট হবে।</div>
         <div class="contact-urgent">কোনো প্রকার সমস্যা হলে contact করুন।</div>
         <button onclick="closeSuccess()" style="background:var(--purple-main); color:#fff; border:none; padding:13px 40px; border-radius:12px; font-weight:bold; cursor:pointer; width: 100%; margin-top: 20px; font-size: 15px;">ঠিক আছে</button>
@@ -385,7 +385,7 @@
     const rulesData = {
         'FreeFire UID TopUp': [
             "⦿ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে।",
-            "⦿ Player ID Code ভুল দিয়ে Diamond না পেলে chorbazar.com কর্তৃপক্ষ دায়ী নয় ।",
+            "⦿ Player ID Code ভুল দিয়ে Diamond না পেলে chorbazar.com কর্তৃপক্ষ দায়ী নয় ।",
             "⦿ Order কমপ্লিট হওয়ার পরেও আইডিতে ডাইমন্ড না গেলে চেক করার জন্য ID Pass দিতে হবে।",
             "⦿ অর্ডার Cancel হলে বা কোনো প্রকার সমস্যা হলে অবস্যই whatsapp বা telegram এ জানাতে হবে।"
         ],
