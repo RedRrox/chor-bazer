@@ -17,10 +17,46 @@
             --alert-bg: #fff7ed;
             --alert-border: #ffedd5;
             --alert-text: #c2410c;
+            --blue-notice-bg: #e0f2fe; /* হালকা নীল ব্যাকগ্রাউন্ড */
+            --blue-notice-border: #0284c7; /* গাঢ় নীল বর্ডার */
+            --blue-notice-text: #0369a1; /* নীল টেক্সট কালার */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--white); color: var(--text-dark); overflow-x: hidden; width: 100%; }
+
+        /* ক্রস বাটনসহ টপ নোটিশ বারের নতুন স্টাইল */
+        .top-notice-bar {
+            background: var(--blue-notice-bg);
+            border-bottom: 2px solid var(--blue-notice-border);
+            color: var(--blue-notice-text);
+            padding: 12px 40px 12px 15px; /* ডানপাশে ক্রস আইকনের জন্য জায়গা রাখা হয়েছে */
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.5;
+            position: relative;
+            width: 100%;
+            display: block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* নোটিশ বন্ধ করার ক্রস আইকন */
+        .close-notice-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 22px;
+            cursor: pointer;
+            color: var(--blue-notice-text);
+            transition: color 0.2s ease;
+            user-select: none;
+        }
+        .close-notice-btn:hover {
+            color: #d00000; /* হোভার করলে লাল হবে */
+        }
 
         header { background: var(--purple-main); padding: 15px 0; text-align: center; border-bottom: 3px solid #4c1d95; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .logo { font-family: 'Poppins', sans-serif; font-size: clamp(1.2rem, 5vw, 1.8rem); color: var(--white); letter-spacing: 2px; font-weight: 700; cursor: pointer; }
@@ -109,11 +145,16 @@
         #success-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
         .success-card { background: var(--white); width: 85%; max-width: 340px; padding: 40px 20px; border-radius: 25px; text-align: center; border-bottom: 8px solid var(--purple-main); }
 
-        footer { text-align: center; padding: 30px 10px; border-top: 1px solid #eee; font-size: 12px; background: #f9fafb; color: #6b7280; }
-        .footer-glow { color: var(--purple-main); font-weight: bold; }
+        footer { text-align: center; padding: 30px 10px; border-top: 1px solid #eee; font-size: 13px; background: #f9fafb; color: #6b7280; font-weight: bold; }
+        .footer-purple { color: var(--purple-main); font-weight: bold; }
     </style>
 </head>
 <body onload="startLiveOrderTracking()">
+
+<div class="top-notice-bar" id="top-announcement-bar">
+    📢 <b>Notice:</b> মা-বাবা বা পরিবারের কারো ফোন থেকে টাকা চুরি করে কেউ টপআপ করবেন না! যদি করেন সে ক্ষেত্রে তাকে টপআপ দেওয়া হবে না। যেকোনো প্রয়োজন হোয়াটসঅ্যাপে বা টেলিগ্রাম এ যোগাযোগ করুন, ধন্যবাদ।
+    <span class="close-notice-btn" onclick="closeTopNotice()">&times;</span>
+</div>
 
 <header>
     <div class="logo" onclick="showPage('home')">CHOR BAZAR</div>
@@ -232,7 +273,7 @@
 </div>
 
 <footer>
-    © 2026 <span class="footer-glow">CHOR BAZAR</span> | PREMIUM GAMING DESTINATION
+    © 2026 <span class="footer-purple">CHOR BAZAR</span> | POWERED BY <span class="footer-purple">RRX STUDIOS</span>
 </footer>
 
 <script>
@@ -327,6 +368,11 @@
         ]
     };
 
+    // নোটিশ ভ্যানিশ করার ফাংশন
+    function closeTopNotice() {
+        document.getElementById('top-announcement-bar').style.display = 'none';
+    }
+
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
@@ -359,7 +405,6 @@
             `;
         });
 
-        // নির্দিষ্ট ক্যাটাগরির রুলস ডাইনামিকালি লোড করা
         const rulesListHTML = document.getElementById('rules-content-list');
         rulesListHTML.innerHTML = "";
         if(rulesData[categoryName]) {
