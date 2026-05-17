@@ -231,6 +231,11 @@
             }
         }, 12000);
     }
+
+    // নতুন ফিচার: ফোন নম্বর বক্সে শুধু নম্বর টাইপ করার লজিক
+    document.getElementById('customer-phone').addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
 </script>
 </body>
 </html>
