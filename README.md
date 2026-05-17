@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CHOR BAZER | PREMIUM TOP UP</title>
+    <title>CHOR BAZAR | PREMIUM TOP UP</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -73,7 +73,7 @@
 <body onload="startOrderHistory()">
 
 <header>
-    <div class="logo">CHOR BAZER</div>
+    <div class="logo">CHOR BAZAR</div>
     <nav>
         <button class="nav-btn" onclick="showPage('home')">Home</button>
         <button class="nav-btn" onclick="showPage('about')">About</button>
@@ -137,7 +137,7 @@
 </div>
 
 <footer>
-    © 2026 <span class="footer-glow">CHOR BAZER</span> | PREMIUM GAMING DESTINATION
+    © 2026 <span class="footer-glow">CHOR BAZAR</span> | PREMIUM GAMING DESTINATION
 </footer>
 
 <script>
@@ -145,7 +145,6 @@
     let selectedPackName = "";
     let notifyInterval;
 
-    // আপনার আসল SheetDB API লিংকটি এখানে দেওয়া হলো
     const SHEETDB_API_URL = "https://sheetdb.io/api/v1/6oyklgob3u2fr"; 
 
     function showPage(pageId) {
@@ -235,7 +234,3 @@
 </script>
 </body>
 </html>
-
-আপনার নতুন ব্র্যান্ডিং স্লাইড এবং কোড রেডি! কোনো পরিবর্তন বা ডিজাইন আরও আপডেট করতে চাইলে জানাবেন।
-
-আপনার চোর বাজার (Chor Bazer)-এর নতুন ডিজাইনটি কেমন লেগেছে?
