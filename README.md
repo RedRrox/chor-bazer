@@ -36,6 +36,7 @@
             background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); 
             padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center; 
             font-weight: bold; color: var(--neon-green); font-size: 13px;
+            transition: opacity 0.5s;
         }
 
         .box { background: var(--card-bg); border: 1px solid var(--border-color); padding: 15px; border-radius: 12px; margin-bottom: 12px; }
@@ -60,8 +61,9 @@
         .bkash-header img { width: 70px; }
         .bkash-main-body { background: #d12053; color: #fff; padding: 12px; margin: 0 10px; border-radius: 8px; text-align: center; }
         .bkash-steps { text-align: left; font-size: 11px; line-height: 1.5; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 10px; margin-top: 10px; }
-        .trx-input-box { width: 100%; padding: 8px; border-radius: 4px; border: none; margin-bottom: 10px; text-align: center; font-weight: bold; color: #000; outline: none; }
+        .trx-input-box { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 10px; text-align: center; font-weight: bold; color: #000; outline: none; font-size: 14px; }
         .verify-red-btn { width: 90%; margin: 10px auto 0; display: block; padding: 12px; background: #d00000; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 4px; }
+        .verify-red-btn:disabled { background: #777; cursor: not-allowed; }
 
         #success-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
         .success-card { background: #111; border: 1px solid var(--neon-green); width: 85%; max-width: 320px; padding: 30px; border-radius: 20px; text-align: center; }
@@ -96,10 +98,10 @@
                 <span class="price" style="opacity: 0.5;">৳ 1</span>
                 <span class="stock-tag">OUT OF STOCK</span>
             </div>
-            <div class="item" onclick="selectPack(this, 'Weekly ', 140)">
+            <div class="item" onclick="selectPack(this, 'Weekly Membership', 140)">
                 <span>Weekly </span><span class="price">৳ 140</span>
             </div>
-            <div class="item" onclick="selectPack(this, 'Monthly ', 650)">
+            <div class="item" onclick="selectPack(this, 'Monthly Membership', 650)">
                 <span>Monthly </span><span class="price">৳ 650</span>
             </div>
         </div>
@@ -124,7 +126,7 @@
 <div id="contact" class="page">
     <div class="box">
         <h2>Contact Us</h2>
-        <button style="width:100%; padding:12px; background:#0088cc; color:#fff; border:none; border-radius:8px; font-weight:bold;">Message on WhatsApp</button>
+        <button style="width:100%; padding:12px; background:#0088cc; color:#fff; border:none; border-radius:8px; font-weight:bold;" onclick="window.open('https://wa.me/8801779772201','_blank')">Message on WhatsApp</button>
         <p style="margin-top:15px; font-size:13px; text-align:center; color:#666;">Email: support@chorbazer.com</p>
     </div>
 </div>
@@ -133,16 +135,20 @@
     <div class="bkash-content">
         <div class="bkash-header"><img src="bikashlogo.png" alt="bkash"></div>
         <div class="bkash-main-body">
-            <h3>ট্রান্সজেকশন আইডি দিন</h3>
-            <input type="text" class="trx-input-box" id="trx-input">
+            <h3 style="font-size: 14px; margin-bottom: 5px;">বিকাশ নম্বর দিন (যেটা থেকে টাকা পাঠিয়েছেন)</h3>
+            <input type="text" class="trx-input-box" id="customer-phone" placeholder="01XXXXXXXXX" maxlength="11">
+            
+            <h3 style="font-size: 14px; margin-bottom: 5px; margin-top: 5px;">ট্রান্সজেকশন আইডি (TxID) দিন</h3>
+            <input type="text" class="trx-input-box" id="trx-input" placeholder="Example: BK28X9P0LM" maxlength="10">
+            
             <div class="bkash-steps">
-                <p>● <b>"Send Money"</b> করুনঃ <b>01779772201</b> <button onclick="copyNum()" style="padding:1px 5px; font-size:9px;">Copy</button></p>
+                <p>● <b>"Send Money"</b> করুনঃ <b>01779772201</b> <button onclick="copyNum()" style="padding:1px 5px; font-size:9px; color:#000;">Copy</button></p>
                 <p>● টাকার পরিমাণঃ ৳ <b id="pay-amount">0</b></p>
-                <p>● নিশ্চিত করতে আপনার bKash পিন দিন এবং TrxID কপি করে এখানে বসান।</p>
+                <p>● পেমেন্ট করার পর আপনার বিকাশ নম্বর এবং ১০ অক্ষরের TrxID উপরে দিয়ে ভেরিফাই করুন।</p>
             </div>
         </div>
-        <button class="verify-red-btn" onclick="handleRealOrder()">VERIFY</button>
-        <button onclick="document.getElementById('bkash-modal').style.display='none'" style="width:100%; background:none; border:none; padding:10px; color:#999; font-size:10px;">CANCEL</button>
+        <button class="verify-red-btn" id="verify-btn" onclick="handleRealOrder()">VERIFY</button>
+        <button onclick="document.getElementById('bkash-modal').style.display='none'" style="width:100%; background:none; border:none; padding:10px; color:#999; font-size:10px; cursor:pointer;">CANCEL</button>
     </div>
 </div>
 
@@ -150,7 +156,7 @@
     <div class="success-card">
         <h2 style="color:var(--neon-green)">ORDER SUCCESS!</h2>
         <p style="margin:20px 0; color:#fff; font-size:15px; font-weight:bold; line-height:1.5;">
-            অর্ডার সফল হয়েছে!<br>
+            অর্ডার সফল হয়েছে!<br>
             <span style="color:var(--neon-yellow)">৩০ থেকে ৪০ মিনিটের মধ্যে</span><br>
             আপনার আইডিতে ডায়মন্ড চলে যাবে।
         </p>
@@ -167,6 +173,9 @@
     let selectedPackName = "";
     let notifyInterval;
 
+    // 🛑 ক্রুশিয়াল: নিচে আপনার তৈরি করা SheetDB API ইউআরএল-টি বসাবেন!
+    const SHEETDB_API_URL = "YOUR_SHEETDB_API_URL"; 
+
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
@@ -182,21 +191,84 @@
     }
 
     function openPayment() {
-        if(!selectedPrice || !document.getElementById('uid-input').value) return alert("UID ও প্যাক সিলেক্ট করুন!");
+        let uid = document.getElementById('uid-input').value.trim();
+        if(!selectedPrice || !uid) return alert("UID ও প্যাক সিলেক্ট করুন!");
+        if(uid.length < 8 || isNaN(uid)) return alert("দয়া করে একটি সঠিক প্লেয়ার ইউআইডি (UID) দিন!");
         document.getElementById('bkash-modal').style.display = 'flex';
     }
 
     function handleRealOrder() {
-        const trx = document.getElementById('trx-input').value;
-        const uid = document.getElementById('uid-input').value;
-        if(trx.length < 5) return alert("ভুল TrxID!");
+        const trx = document.getElementById('trx-input').value.trim();
+        const phone = document.getElementById('customer-phone').value.trim();
+        const uid = document.getElementById('uid-input').value.trim();
+        const verifyBtn = document.getElementById('verify-btn');
         
-        document.getElementById('bkash-modal').style.display = 'none';
-        document.getElementById('success-popup').style.display = 'flex';
+        // ১. কাস্টমার ফোন নম্বর ভ্যালিডেশন
+        let phonePattern = /^(013|014|015|016|017|018|019)\d{8}$/;
+        if (!phonePattern.test(phone)) {
+            return alert("দয়া করে একটি সঠিক ১১ ডিজিটের বিকাশ নম্বর দিন!");
+        }
+
+        // ২. ট্রানজেকশন আইডি ভ্যালিডেশন (১০ অক্ষরের হতে হবে)
+        let txidPattern = /^[A-Z0-9]{10}$/; 
+        if (!txidPattern.test(trx.toUpperCase())) {
+            return alert("ভুল ট্রানজেকশন আইডি! ১০ অক্ষরের সঠিক bKash TxID দিন। (যেমন: BK28X9P0LM)");
+        }
         
-        clearInterval(notifyInterval);
-        const notify = document.getElementById('notify-box');
-        notify.innerHTML = `<span style="color:var(--neon-green)">🔥 SUCCESS! ${uid} just bought ${selectedPackName}.</span>`;
+        // বাটনে লোডিং স্টেট দেওয়া যাতে কাস্টমার ডাবল ক্লিক না করে
+        verifyBtn.innerText = "PROCESSING...";
+        verifyBtn.disabled = true;
+
+        // ৩. গুগল শিটে ডেটা পাঠানোর অবজেক্ট রেডি করা
+        let orderData = {
+            "data": [
+                {
+                    "Time": new Date().toLocaleString("en-US", {timeZone: "Asia/Dhaka"}),
+                    "Player UID": uid,
+                    "Selected Pack": selectedPackName,
+                    "bKash Number": phone,
+                    "TxID": trx.toUpperCase(),
+                    "Status": "Pending"
+                }
+            ]
+        };
+
+        // ৪. SheetDB API কল
+        fetch(SHEETDB_API_URL, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // রিকোয়েস্ট সফল হলে বাটন রিসেট হবে এবং সাকসেস পপ-আপ আসবে
+            verifyBtn.innerText = "VERIFY";
+            verifyBtn.disabled = false;
+
+            if(data.created === 1) {
+                document.getElementById('bkash-modal').style.display = 'none';
+                document.getElementById('success-popup').style.display = 'flex';
+                
+                // ইনপুট বক্সগুলো রিসেট করে দেওয়া
+                document.getElementById('trx-input').value = "";
+                document.getElementById('customer-phone').value = "";
+                
+                clearInterval(notifyInterval);
+                const notify = document.getElementById('notify-box');
+                notify.innerHTML = `<span style="color:var(--neon-green)">🔥 SUCCESS! ${uid} just bought ${selectedPackName}.</span>`;
+            } else {
+                alert("অর্ডার প্রসেস করতে সমস্যা হয়েছে। আবার চেষ্টা করুন!");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            verifyBtn.innerText = "VERIFY";
+            verifyBtn.disabled = false;
+            alert("নেটওয়ার্ক সমস্যা! অনুগ্রহ করে আবার চেষ্টা করুন বা আপনার ইন্টারনেট চেক করুন।");
+        });
     }
 
     function closeSuccess() {
@@ -208,11 +280,13 @@
         const fakes = ["UID 4521***", "UID 9982***", "UID 1025***", "UID 7745***"];
         notifyInterval = setInterval(() => {
             const notify = document.getElementById('notify-box');
-            notify.style.opacity = '0';
-            setTimeout(() => {
-                notify.innerText = `✅ ${fakes[Math.floor(Math.random() * fakes.length)]} bought ${Math.random()>0.5?'Weekly':'Monthly'}!`;
-                notify.style.opacity = '1';
-            }, 500);
+            if(notify) {
+                notify.style.opacity = '0';
+                setTimeout(() => {
+                    notify.innerText = `✅ ${fakes[Math.floor(Math.random() * fakes.length)]} bought ${Math.random()>0.5?'Weekly':'Monthly'}!`;
+                    notify.style.opacity = '1';
+                }, 500);
+            }
         }, 10000);
     }
 
