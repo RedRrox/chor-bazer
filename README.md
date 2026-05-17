@@ -36,7 +36,7 @@
             background: var(--purple-light); border: 1px solid #ddd6fe; 
             padding: 12px; border-radius: 12px; margin-bottom: 20px; text-align: center; 
             font-weight: bold; color: var(--purple-main); font-size: 14px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: opacity 0.5s ease;
         }
 
         .box { background: var(--white); border: 1px solid var(--border); padding: 20px; border-radius: 16px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
@@ -70,7 +70,7 @@
         .footer-glow { color: var(--purple-main); font-weight: bold; }
     </style>
 </head>
-<body onload="startOrderHistory()">
+<body onload="startLiveOrderTracking()">
 
 <header>
     <div class="logo">CHOR BAZAR</div>
@@ -82,7 +82,7 @@
 </header>
 
 <div id="home" class="page active">
-    <div id="notify-box">🚀 Waiting for new orders...</div>
+    <div id="notify-box">🔄 Loading last order details...</div>
     <div class="box">
         <h2>1. Player UID</h2>
         <input type="text" id="uid-input" placeholder="Enter Player UID here">
@@ -143,7 +143,7 @@
 <script>
     let selectedPrice = 0;
     let selectedPackName = "";
-    let notifyInterval;
+    let lastLoadedTxID = ""; // লাস্ট ট্র্যাকিং করা TxID সেভ রাখার জন্য
 
     const SHEETDB_API_URL = "https://sheetdb.io/api/v1/6oyklgob3u2fr"; 
 
@@ -205,8 +205,10 @@
                 document.getElementById('trx-input').value = "";
                 document.getElementById('customer-phone').value = "";
                 document.getElementById('uid-input').value = "";
-                const notify = document.getElementById('notify-box');
-                notify.innerHTML = `✅ সাকসেস! ${uid} এর জন্য ${selectedPackName} অর্ডার হয়েছে।`;
+                
+                // নিজের নতুন অর্ডারটি সাথে সাথে নোটিফিকেশনে আপডেট করে দেওয়া
+                updateNotifyBox(uid, selectedPackName);
+                lastLoadedTxID = trx.toUpperCase();
             }
         })
         .catch(error => {
@@ -218,21 +220,55 @@
     function closeSuccess() { document.getElementById('success-popup').style.display = 'none'; }
     function copyNum() { navigator.clipboard.writeText("01779772201"); alert("Number Copied!"); }
 
-    function startOrderHistory() {
-        const fakes = ["UID 5021****", "UID 8842****", "UID 1125****", "UID 7745****"];
-        notifyInterval = setInterval(() => {
-            const notify = document.getElementById('notify-box');
-            if(notify) {
-                notify.style.opacity = '0';
-                setTimeout(() => {
-                    notify.innerText = `✅ ${fakes[Math.floor(Math.random() * fakes.length)]} bought ${Math.random()>0.5?'Weekly':'Monthly'}!`;
-                    notify.style.opacity = '1';
-                }, 500);
-            }
-        }, 12000);
+    // নোটিফিকেশন বক্স সুন্দর এনিমেশন দিয়ে আপডেট করার ফাংশন
+    function updateNotifyBox(uid, pack) {
+        const notify = document.getElementById('notify-box');
+        if (notify) {
+            notify.style.opacity = '0';
+            setTimeout(() => {
+                // কাস্টমারের ইউআইডির পেছনের ৪টি অক্ষর সিকিউরিটির জন্য হাইড (****) করে দেখাবে
+                let maskedUID = uid;
+                if(uid.length > 4) {
+                    maskedUID = uid.substring(0, uid.length - 4) + "****";
+                }
+                notify.innerHTML = `🔥 Last Order: <span style="color:#6a0dad">${maskedUID}</span> bought <b>${pack}</b>!`;
+                notify.style.opacity = '1';
+            }, 500);
+        }
     }
 
-    // নতুন ফিচার: ফোন নম্বর বক্সে শুধু নম্বর টাইপ করার লজিক
+    // গুগল শিট থেকে লাইভ লাস্ট অর্ডার ডেটা নিয়ে আসার আসল লজিক
+    function fetchLiveLastOrder() {
+        fetch(SHEETDB_API_URL)
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                // গুগল শিটের একদম শেষ লাইনের (লাস্ট ইনডেক্স) ডেটা রিড করা
+                const lastOrder = data[data.length - 1];
+                const currentTxID = lastOrder['TxID'];
+                
+                // যদি নতুন অর্ডার আসে (অর্থাৎ আগের সেভ করা TxID-এর সাথে না মিলে) তখনই শুধু নোটিফিকেশন চেঞ্জ হবে
+                if (currentTxID !== lastLoadedTxID) {
+                    const uid = lastOrder['Player UID'] || "Unknown";
+                    const pack = lastOrder['Selected Pack'] || "Pack";
+                    
+                    updateNotifyBox(uid, pack);
+                    lastLoadedTxID = currentTxID; // নতুন TxID লক করে রাখা হলো
+                }
+            } else {
+                document.getElementById('notify-box').innerText = "🚀 Waiting for the first order...";
+            }
+        })
+        .catch(error => console.log("Live tracking network error or empty sheet."));
+    }
+
+    // লাইভ ট্র্যাকিং স্টার্ট এবং প্রতি ১০ সেকেন্ড পর পর অটো চেক লুপ
+    function startLiveOrderTracking() {
+        fetchLiveLastOrder(); // পেজ ওপেন হওয়ার সাথে সাথেই প্রথমবার চেক করবে
+        setInterval(fetchLiveLastOrder, 10000); // প্রতি ১০,০০০ মিলিসেকেন্ড (১০ সেকেন্ড) পর পর গুগল শিট ব্যাকগ্রাউন্ডে চেক করবে
+    }
+
+    // ফোন নম্বর বক্সে শুধু নম্বর টাইপ করার লজিক
     document.getElementById('customer-phone').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '');
     });
