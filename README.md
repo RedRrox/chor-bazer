@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CHOR BAZAR | PREMIUM TOP UP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --purple-main: #6a0dad; /* রাজকীয় বেগুনি */
@@ -17,6 +18,7 @@
             --alert-bg: #fff7ed;
             --alert-border: #ffedd5;
             --alert-text: #c2410c;
+            --success-green: #15803d;
             --blue-notice-bg: #e0f2fe; /* হালকা নীল ব্যাকগ্রাউন্ড */
             --blue-notice-border: #0284c7; /* গাঢ় নীল বর্ডার */
             --blue-notice-text: #0369a1; /* নীল টেক্সট কালার */
@@ -24,6 +26,12 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; -webkit-tap-highlight-color: transparent; }
         body { background: var(--white); color: var(--text-dark); overflow-x: hidden; width: 100%; }
+
+        /* পেজ ট্রানজিশন স্মুথ স্লাইড এবং ফেড অ্যানিমেশন */
+        @keyframes slidePageIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* টপ নোটিশ বার */
         .top-notice-bar {
@@ -40,6 +48,7 @@
             width: 100%;
             display: block;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            z-index: 1001;
         }
 
         .close-notice-btn {
@@ -55,7 +64,7 @@
         }
         .close-notice-btn:hover { color: #d00000; }
 
-        header { background: var(--purple-main); padding: 15px 0; text-align: center; border-bottom: 3px solid #4c1d95; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        header { background: var(--purple-main); padding: 15px 0; text-align: center; border-bottom: 3px solid #4c1d95; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .logo { font-family: 'Poppins', sans-serif; font-size: clamp(1.2rem, 5vw, 1.8rem); color: var(--white); letter-spacing: 2px; font-weight: 700; cursor: pointer; }
         
         nav { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
@@ -66,9 +75,8 @@
         }
         .nav-btn:hover { background: var(--white); color: var(--purple-main); transform: translateY(-2px); }
 
-        .page { display: none; width: 95%; max-width: 480px; margin: 20px auto; animation: fadeIn 0.4s; }
+        .page { display: none; width: 95%; max-width: 480px; margin: 20px auto; animation: slidePageIn 0.4s ease-out; }
         .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         #notify-box { 
             background: var(--purple-light); border: 1px solid #ddd6fe; 
@@ -77,10 +85,7 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.05); transition: opacity 0.5s ease;
         }
 
-        .box { background: var(--white); border: 1px solid var(--border); padding: 20px; border-radius: 16px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        h2 { font-size: 15px; margin-bottom: 15px; color: var(--purple-main); text-transform: uppercase; border-left: 4px solid var(--purple-main); padding-left: 10px; font-family: 'Poppins', sans-serif; }
-
-        /* মোবাইল ফ্রেন্ডলি ইমেজ ক্যাটাগরি গ্রিড (২টি করে কলাম) */
+        /* মোবাইল স্ক্রিনবান্ধব ২x২ ইমেজ গ্রিড */
         .category-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -95,11 +100,11 @@
             overflow: hidden;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.2s;
             text-align: center;
         }
         .category-image-card:hover {
-            transform: translateY(-3px);
+            transform: scale(1.02);
             box-shadow: 0 6px 15px rgba(106, 13, 173, 0.15);
         }
         .category-image-card img {
@@ -117,6 +122,9 @@
             text-transform: uppercase;
             border-top: 1px solid #f3f4f6;
         }
+
+        .box { background: var(--white); border: 1px solid var(--border); padding: 20px; border-radius: 16px; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        h2 { font-size: 15px; margin-bottom: 15px; color: var(--purple-main); text-transform: uppercase; border-left: 4px solid var(--purple-main); padding-left: 10px; font-family: 'Poppins', sans-serif; }
 
         .back-btn {
             background: none; border: 1px solid var(--purple-main); color: var(--purple-main);
@@ -137,11 +145,13 @@
         .btn-buy { width: 100%; padding: 16px; background: var(--purple-main); color: #fff; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 15px; text-transform: uppercase; font-size: 16px; transition: 0.3s; }
         .btn-buy:hover { background: #4c1d95; box-shadow: 0 6px 15px rgba(106, 13, 173, 0.3); }
 
+        /* Rules Dynamic Box Style */
         .rules-container { background: var(--alert-bg); border: 1px solid var(--alert-border); border-radius: 12px; padding: 15px; margin-top: 15px; }
         .rules-title { font-family: 'Poppins', sans-serif; font-weight: bold; color: var(--alert-text); font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px; }
         .rules-list { font-size: 13px; color: #4a5568; line-height: 1.6; list-style: none; text-align: left; }
         .rules-list li { margin-bottom: 8px; position: relative; padding-left: 5px; }
 
+        /* Contact & About Styling */
         .about-text { font-size: 15px; line-height: 1.6; color: #4b5563; text-align: justify; margin-bottom: 15px; font-family: 'Poppins', sans-serif; }
         .support-badge { background: #10b981; color: white; display: inline-block; padding: 5px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; margin-top: 10px; }
         
@@ -156,7 +166,7 @@
         .telegram { background: var(--telegram-color); box-shadow: 0 4px 12px rgba(0, 136, 204, 0.2); }
 
         /* Payment Modal */
-        #bkash-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        #bkash-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
         .bkash-content { background: #fff; width: 92%; max-width: 360px; border-radius: 20px; overflow: hidden; color: #333; padding-bottom: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
         .bkash-header { padding: 15px; text-align: center; background: #f8f9fa; border-bottom: 1px solid #eee; }
         .bkash-header img { width: 90px; }
@@ -164,8 +174,23 @@
         .trx-input-box { width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #eee; margin-bottom: 10px; text-align: center; font-weight: bold; color: #000; outline: none; font-size: 15px; }
         .verify-red-btn { width: 90%; margin: 10px auto 0; display: block; padding: 14px; background: #d00000; color: #fff; border: none; font-weight: bold; cursor: pointer; border-radius: 8px; font-size: 16px; }
 
-        #success-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .success-card { background: var(--white); width: 85%; max-width: 340px; padding: 40px 20px; border-radius: 25px; text-align: center; border-bottom: 8px solid var(--purple-main); }
+        /* প্রিমিয়াম সাকসেস পপআপ এবং নতুন গ্রিন কালার অ্যানিমেশন */
+        #success-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 3000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+        .success-card { 
+            background: var(--white); width: 85%; max-width: 360px; padding: 35px 20px; 
+            border-radius: 30px; text-align: center; border-bottom: 8px solid var(--purple-main);
+            animation: slidePageIn 0.4s ease-out; box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+        }
+        .success-icon { 
+            width: 80px; height: 80px; background: #dcfce7; color: #16a34a; 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 42px; margin: 0 auto 20px; animation: scalePop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes scalePop { from { transform: scale(0); } to { transform: scale(1); } }
+        
+        .success-text-bold { color: var(--success-green); font-size: 21px; font-weight: 800; font-family: 'Poppins', sans-serif; margin-bottom: 12px; }
+        .success-text-sub { color: #374151; font-size: 15px; font-weight: 500; font-family: 'Poppins', sans-serif; line-height: 1.6; margin-bottom: 20px; }
+        .contact-urgent { color: #dc2626; font-size: 14px; font-weight: bold; font-family: 'Poppins', sans-serif; border-top: 1px solid #f3f4f6; padding-top: 15px; margin-top: 5px; }
 
         footer { text-align: center; padding: 30px 10px; border-top: 1px solid #eee; font-size: 13px; background: #f9fafb; color: #6b7280; font-weight: bold; }
         .footer-purple { color: var(--purple-main); font-weight: bold; }
@@ -263,11 +288,11 @@
             Need help with your order? Feel free to reach out to our dedicated support team anytime through the platforms below:
         </p>
         
-        <a href="https://wa.me/YOUR_NUMBER" target="_blank" class="contact-btn whatsapp">
+        <a href="https://wa.me/8801707566410" target="_blank" class="contact-btn whatsapp">
             💬 Connect via WhatsApp
         </a>
         
-        <a href="https://t.me/YOUR_USERNAME" target="_blank" class="contact-btn telegram">
+        <a href="https://t.me/RedRrox" target="_blank" class="contact-btn telegram">
             ✈ Connect via Telegram
         </a>
     </div>
@@ -293,14 +318,11 @@
 
 <div id="success-popup">
     <div class="success-card">
-        <div style="font-size: 50px; color: var(--purple-main); margin-bottom: 10px;">✔</div>
-        <h2 style="color:var(--purple-main); font-size: 24px;">অর্ডার সফল হয়েছে!</h2>
-        <p style="margin:20px 0; color:#4b5563; font-size:15px; line-height:1.6;">
-            আপনার পেমেন্ট ভেরিফাই করা হচ্ছে।<br>
-            আগামী <b>৩০-৪০ মিনিটের</b> মধ্যে<br>
-            আইডিতে ডায়মন্ড চলে যাবে।
-        </p>
-        <button onclick="closeSuccess()" style="background:var(--purple-main); color:#fff; border:none; padding:12px 40px; border-radius:10px; font-weight:bold; cursor:pointer; width: 100%;">ঠিক আছে</button>
+        <div class="success-icon">✓</div>
+        <div class="success-text-bold">আপনার অর্ডারটি সফল হয়েছে!</div>
+        <div class="success-text-sub">কিছুক্ষণ এর মধ্যে আপনার অর্ডারটি কমপ্লিট হবে।</div>
+        <div class="contact-urgent">কানো প্রকার প্রবলেম হলে contact করুন</div>
+        <button onclick="closeSuccess()" style="background:var(--purple-main); color:#fff; border:none; padding:13px 40px; border-radius:12px; font-weight:bold; cursor:pointer; width: 100%; margin-top: 15px; font-size: 15px;">ঠিক আছে</button>
     </div>
 </div>
 
@@ -316,6 +338,7 @@
 
     const SHEETDB_API_URL = "https://sheetdb.io/api/v1/6oyklgob3u2fr"; 
 
+    // ১. ফ্রি ফায়ার ইউআইডি টপ-আপ প্যাকের ডেটা
     const ffUidPacks = [
         { name: "25 Diamond", price: 23 },
         { name: "50 Diamond", price: 38 },
@@ -336,6 +359,7 @@
         { name: "2xMonthly", price: 1600 }
     ];
 
+    // ২. ফ্রি ফায়ার মেম্বারশিপ প্যাকের ডেটা
     const ffMembershipPacks = [
         { name: "Weekly Lite", price: 50 },
         { name: "Weekly", price: 160 },
@@ -348,12 +372,14 @@
         { name: "5xWeekly", price: 800 }
     ];
 
+    // ৩. ইভো অ্যাক্সেস প্যাকের ডেটা
     const evoAccessPacks = [
         { name: "3 Days Evo Access", price: 90 },
         { name: "7 Days Evo Access", price: 130 },
         { name: "30 Days Evo Access", price: 340 }
     ];
 
+    // ৪. লেভেল আপ পাস প্যাকের ডেটা
     const levelUpPacks = [
         { name: "Level Up Package - Level 6", price: 50 },
         { name: "Level Up Package - Level 10", price: 80 },
@@ -364,6 +390,7 @@
         { name: "Full Level Up Pass", price: 430 }
     ];
 
+    // প্রতিটা ক্যাটাগরির জন্য আলাদা রুলস টেক্সট ডেটাবেজ
     const rulesData = {
         'FreeFire UID TopUp': [
             "⦿ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে।",
@@ -402,6 +429,7 @@
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // পেজ পরিবর্তনের সময় স্ক্রল উপরে চলে যাবে
         if(pageId === 'home') {
             selectedPrice = 0; selectedPackName = "";
             document.getElementById('sum-total').innerText = 0;
@@ -503,6 +531,7 @@
         })
         .catch(error => {
             verifyBtn.disabled = false;
+            verifyBtn.innerText = "VERIFY PAYMENT";
             alert("Error! Please check internet connection.");
         });
     }
@@ -531,11 +560,11 @@
         .then(data => {
             if (data && data.length > 0) {
                 const lastOrder = data[data.length - 1];
-                const currentTxID = lastOrder['TxID'];
+                const currentTxID = lastOrder['TxID'] || lastOrder['transaction_id'] || lastOrder['Txid'];
                 
                 if (currentTxID !== lastLoadedTxID) {
-                    const uid = lastOrder['Player UID'] || "Unknown";
-                    const pack = lastOrder['Selected Pack'] || "Pack";
+                    const uid = lastOrder['Player UID'] || lastOrder['UID'] || "Unknown";
+                    const pack = lastOrder['Selected Pack'] || lastOrder['Pack'] || "Pack";
                     
                     updateNotifyBox(uid, pack);
                     lastLoadedTxID = currentTxID; 
@@ -544,12 +573,12 @@
                 document.getElementById('notify-box').innerText = "🚀 Waiting for the first order...";
             }
         })
-        .catch(error => console.log("Live tracking error."));
+        .catch(error => console.log("Live tracking check."));
     }
 
     function startLiveOrderTracking() {
         fetchLiveLastOrder(); 
-        setInterval(fetchLiveLastOrder, 10000); 
+        setInterval(fetchLiveLastOrder, 12000); 
     }
 
     document.getElementById('customer-phone').addEventListener('input', function (e) {
