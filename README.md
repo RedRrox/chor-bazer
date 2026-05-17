@@ -173,8 +173,8 @@
     let selectedPackName = "";
     let notifyInterval;
 
-    // 🛑 ক্রুশিয়াল: নিচে আপনার তৈরি করা SheetDB API ইউআরএল-টি বসাবেন!
-    const SHEETDB_API_URL = "YOUR_SHEETDB_API_URL"; 
+    // আপনার তৈরি করা SheetDB API লিংকটি এখানে যুক্ত করা হলো 
+    const SHEETDB_API_URL = "https://sheetdb.io/api/v1/6oyklgob3u2fr"; 
 
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -215,7 +215,7 @@
             return alert("ভুল ট্রানজেকশন আইডি! ১০ অক্ষরের সঠিক bKash TxID দিন। (যেমন: BK28X9P0LM)");
         }
         
-        // বাটনে লোডিং স্টেট দেওয়া যাতে কাস্টমার ডাবল ক্লিক না করে
+        // বাটনে লোডিং স্টেট দেওয়া
         verifyBtn.innerText = "PROCESSING...";
         verifyBtn.disabled = true;
 
@@ -244,7 +244,6 @@
         })
         .then(response => response.json())
         .then(data => {
-            // রিকোয়েস্ট সফল হলে বাটন রিসেট হবে এবং সাকসেস পপ-আপ আসবে
             verifyBtn.innerText = "VERIFY";
             verifyBtn.disabled = false;
 
@@ -252,7 +251,7 @@
                 document.getElementById('bkash-modal').style.display = 'none';
                 document.getElementById('success-popup').style.display = 'flex';
                 
-                // ইনপুট বক্সগুলো রিসেট করে দেওয়া
+                // ইনপুট বক্সগুলো রিসেট করা
                 document.getElementById('trx-input').value = "";
                 document.getElementById('customer-phone').value = "";
                 
@@ -267,7 +266,7 @@
             console.error('Error:', error);
             verifyBtn.innerText = "VERIFY";
             verifyBtn.disabled = false;
-            alert("নেটওয়ার্ক সমস্যা! অনুগ্রহ করে আবার চেষ্টা করুন বা আপনার ইন্টারনেট চেক করুন।");
+            alert("নেটওয়ার্ক সমস্যা! অনুগ্রহ করে আবার চেষ্টা করুন।");
         });
     }
 
