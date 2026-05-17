@@ -126,10 +126,10 @@
     <div class="category-card" onclick="openCategory('Free Fire Membership')">
         🛡 Free Fire Membership
     </div>
-    <div class="category-card" onclick="alert('Coming Soon!')">
+    <div class="category-card" onclick="openCategory('Evo Access UID')">
         ⚡ Evo Access UID
     </div>
-    <div class="category-card" onclick="alert('Coming Soon!')">
+    <div class="category-card" onclick="openCategory('Level Up Pass')">
         ⭐ Level Up Pass
     </div>
 </div>
@@ -249,7 +249,7 @@
         { name: "2xMonthly", price: 1600 }
     ];
 
-    // ২. নতুন যুক্ত হওয়া ফ্রি ফায়ার মেম্বারশিপ প্যাকের ডেটা
+    // ২. ফ্রি ফায়ার মেম্বারশিপ প্যাকের ডেটা
     const ffMembershipPacks = [
         { name: "Weekly Lite", price: 50 },
         { name: "Weekly", price: 160 },
@@ -260,6 +260,24 @@
         { name: "1Weekly + 1Monthly", price: 960 },
         { name: "2X Weekly Lite", price: 100 },
         { name: "5xWeekly", price: 800 }
+    ];
+
+    // ৩. নতুন যুক্ত হওয়া ইভো অ্যাক্সেস প্যাকের ডেটা
+    const evoAccessPacks = [
+        { name: "3 Days Evo Access", price: 90 },
+        { name: "7 Days Evo Access", price: 130 },
+        { name: "30 Days Evo Access", price: 340 }
+    ];
+
+    // ৪. নতুন যুক্ত হওয়া লেভেল আপ পাস প্যাকের ডেটা
+    const levelUpPacks = [
+        { name: "Level Up Package - Level 6", price: 50 },
+        { name: "Level Up Package - Level 10", price: 80 },
+        { name: "Level Up Package - Level 15", price: 80 },
+        { name: "Level Up Package - Level 20", price: 80 },
+        { name: "Level Up Package - Level 25", price: 80 },
+        { name: "Level Up Package - Level 30", price: 110 },
+        { name: "Full Level Up Pass", price: 430 }
     ];
 
     function showPage(pageId) {
@@ -279,26 +297,21 @@
         const grid = document.getElementById('pack-grid');
         grid.innerHTML = ""; 
         
-        if(categoryName === 'FreeFire UID TopUp') {
-            ffUidPacks.forEach(pack => {
-                grid.innerHTML += `
-                    <div class="item" onclick="selectPack(this, '${pack.name}', ${pack.price})">
-                        <span style="font-weight: 700;">${pack.name}</span>
-                        <span class="price">৳ ${pack.price}</span>
-                    </div>
-                `;
-            });
-        } 
-        else if(categoryName === 'Free Fire Membership') {
-            ffMembershipPacks.forEach(pack => {
-                grid.innerHTML += `
-                    <div class="item" onclick="selectPack(this, '${pack.name}', ${pack.price})">
-                        <span style="font-weight: 700;">${pack.name}</span>
-                        <span class="price">৳ ${pack.price}</span>
-                    </div>
-                `;
-            });
-        }
+        let selectedArray = [];
+        if(categoryName === 'FreeFire UID TopUp') selectedArray = ffUidPacks;
+        else if(categoryName === 'Free Fire Membership') selectedArray = ffMembershipPacks;
+        else if(categoryName === 'Evo Access UID') selectedArray = evoAccessPacks;
+        else if(categoryName === 'Level Up Pass') selectedArray = levelUpPacks;
+
+        selectedArray.forEach(pack => {
+            grid.innerHTML += `
+                <div class="item" onclick="selectPack(this, '${pack.name}', ${pack.price})">
+                    <span style="font-weight: 700;">${pack.name}</span>
+                    <span class="price">৳ ${pack.price}</span>
+                </div>
+            `;
+        });
+        
         showPage('pack-page');
     }
 
@@ -412,12 +425,10 @@
         setInterval(fetchLiveLastOrder, 10000); 
     }
 
-    // বিকাশ নম্বর বক্সে শুধু নম্বর টাইপ করার লজিক
     document.getElementById('customer-phone').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '');
     });
 
-    // নতুন ফিচার: প্লেয়ার ইউআইডি বক্সেও শুধু নম্বর টাইপ করার লজিক
     document.getElementById('uid-input').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '');
     });
